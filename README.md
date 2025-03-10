@@ -110,7 +110,7 @@ Welcome to my homelab adventure! This repository documents my journey in buildin
 ### Monthly Cost Estimation
 - Average Power Rate: $0.12/kWh
 - Current Monthly Cost: ~$25
-- Projected Cost (Full Setup): ~$40
+- Projected Cost (Full Setup): ~x$40
 
 ## 📈 Progress Timeline
 
