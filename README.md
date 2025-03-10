@@ -13,7 +13,6 @@ Welcome to my homelab adventure! This repository documents my journey in buildin
 ## 📑 Table of Contents
 - [🌐 Network Infrastructure](#-network-infrastructure)
 - [🖥️ Compute Resources](#️-compute-resources)
-- [🏗️ Physical Setup](#️-physical-setup)
 - [📊 Power & Costs](#-power--costs)
 - [📈 Progress Timeline](#-progress-timeline)
 - [🎯 Current Projects](#-current-projects)
