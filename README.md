@@ -22,6 +22,8 @@ Welcome to my homelab adventure! This repository documents my journey in buildin
 
 ### Core Components
 - 📡 **Router**: TP-Link Archer AX20
+- ![tp-link-archer-ax21-router-3](https://github.com/user-attachments/assets/44a1f4f4-bc81-41dd-8ec4-ad66fb7d1b4e)
+
   - Wi-Fi 6 (AX1800)
   - Dual-band: 2.4GHz + 5GHz
   - 4x Gigabit LAN ports
@@ -29,6 +31,8 @@ Welcome to my homelab adventure! This repository documents my journey in buildin
   - Advanced QoS features
 
 - 🔌 **Switch**: Netgear GS108Ev4
+- ![Screenshot 2025-03-09 222911](https://github.com/user-attachments/assets/990c55d5-b3a9-41e2-875e-f8470c280bc2)
+
   - 8-Port Gigabit Managed
   - VLAN support
   - Link aggregation
