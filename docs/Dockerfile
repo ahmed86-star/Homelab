@@ -1,7 +1,7 @@
 # 🐳 Dockerfile for Homelab Documentation
 
 # Build stage
-FROM hugo:latest AS builder
+FROM klakegg/hugo:latest AS builder
 
 # Set working directory
 WORKDIR /app
