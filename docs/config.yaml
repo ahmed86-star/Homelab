@@ -1,0 +1,171 @@
+baseURL: "https://homelab.ahmed2.com/"
+languageCode: "en-us"
+title: "🏠 Homelab Documentation"
+theme: "docsy"
+
+# Site Parameters
+params:
+  # General
+  description: "📚 Comprehensive documentation for the Homelab infrastructure"
+  github_repo: "https://github.com/yourusername/homelab"
+  github_edit: "https://github.com/yourusername/homelab/edit/main/docs/content"
+  github_issues: "https://github.com/yourusername/homelab/issues"
+
+  # Navigation
+  menu:
+    main:
+    - name: "🏠 Home"
+      url: "/"
+      weight: 1
+    - name: "📊 Overview"
+      url: "/overview/"
+      weight: 2
+    - name: "⚙️ Installation"
+      url: "/installation/"
+      weight: 3
+    - name: "💻 Development"
+      url: "/development/"
+      weight: 4
+    - name: "🔧 Operations"
+      url: "/operations/"
+      weight: 5
+    - name: "📝 Guides"
+      url: "/guides/"
+      weight: 6
+
+  # Search
+  search:
+    enable: true
+    provider: "algolia"
+    indexName: "homelab"
+    appId: "YOUR_ALGOLIA_APP_ID"
+    searchKey: "YOUR_ALGOLIA_SEARCH_KEY"
+
+  # Table of Contents
+  toc:
+    enable: true
+    depth: 3
+    style: "bootstrap"
+    position: "right"
+
+  # Code Highlighting
+  highlight:
+    enable: true
+    theme: "dracula"
+    lineNumbers: true
+    lineNumbersInTable: true
+    lineAnchors: true
+    lineNoStart: 1
+    lineNoTitle: "Line"
+    lineNoSeparator: ":"
+    lineNoHighlight: true
+    lineNoHighlightStart: 1
+    lineNoHighlightEnd: 1
+    lineNoHighlightTitle: "Highlighted line"
+    lineNoHighlightSeparator: ":"
+
+  # Emoji Support
+  emoji:
+    enable: true
+    shortcode: true
+    fallback: "emoji"
+
+  # Custom CSS
+  custom_css:
+  - "css/custom.css"
+
+  # Custom JavaScript
+  custom_js:
+  - "js/custom.js"
+
+# Markdown Configuration
+markup:
+  highlight:
+    noClasses: false
+    lineAnchors: true
+    lineNoStart: 1
+    lineNoTitle: "Line"
+    lineNoSeparator: ":"
+    lineNoHighlight: true
+    lineNoHighlightStart: 1
+    lineNoHighlightEnd: 1
+    lineNoHighlightTitle: "Highlighted line"
+    lineNoHighlightSeparator: ":"
+    lineNumbersInTable: true
+    style: "dracula"
+    tabWidth: 4
+    useHLJS: true
+
+# Build Configuration
+build:
+  writeStats: true
+  useResourceCacheWhen: "always"
+
+# Output Configuration
+outputs:
+  home:
+  - HTML
+  - JSON
+  - RSS
+
+# Security
+security:
+  enableInlineShortcodes: true
+  enableEmoji: true
+
+# Performance
+perf:
+  enableFingerprinting: true
+  enableResourceCache: true
+  enableResourceCacheWhen: "always"
+
+# Development
+development:
+  enableGitInfo: true
+  enableEmoji: true
+  enableShortcodes: true
+  enableTableOfContents: true
+  enableCodeHighlighting: true
+  enableSearch: true
+  enableAnalytics: true
+
+# Analytics
+analytics:
+  google:
+    enable: true
+    id: "YOUR_GA_ID"
+  plausible:
+    enable: true
+    domain: "homelab.ahmed2.com"
+
+# Cache
+cache:
+  enable: true
+  dir: ".hugo_cache"
+  maxAge: 24h
+
+# Image Processing
+imaging:
+  quality: 85
+  resampleFilter: "Lanczos"
+  anchor: "Smart"
+  exif:
+    enable: true
+    excludeFields: "GPS"
+
+# Sitemap
+sitemap:
+  enable: true
+  changefreq: "weekly"
+  filename: "sitemap.xml"
+  priority: 0.5
+
+# RSS
+rss:
+  enable: true
+  title: "Homelab Documentation Updates"
+  description: "Latest updates from the Homelab documentation"
+  copyright: "© 2024 Homelab"
+  language: "en-us"
+  limit: 20
+  output: "rss.xml"

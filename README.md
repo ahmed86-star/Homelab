@@ -1,177 +1,108 @@
-﻿#  My Awesome Homelab Setup
+﻿# 🏠 Homelab Documentation
 
+This repository contains the documentation for my homelab infrastructure, including setup guides, configuration details, and maintenance procedures.
 
-# �� My Awesome Homelab Journey (Est. November 2024)
+## 📚 Documentation Structure
 
-Welcome to my homelab adventure! This repository documents my journey in building and maintaining a home lab environment for learning, testing, and self-hosting various services.
+```
+docs/
+├── content/           # Documentation content
+│   ├── overview/     # System overview
+│   ├── installation/ # Installation guides
+│   ├── development/  # Development guides
+│   └── operations/   # Operations guides
+├── static/           # Static assets
+├── assets/          # Theme assets
+└── layouts/         # Hugo templates
+```
 
-## 🌟 Quick Overview
-- 🎯 Started: November 2024
-- 🏗️ Status: Active Development
-- 🔄 Last Updated: March 2025
+## 🚀 Features
 
-## 📑 Table of Contents
-- [🌐 Network Infrastructure](#-network-infrastructure)
-- [🖥️ Compute Resources](#️-compute-resources)
-- [📊 Power & Costs](#-power--costs)
-- [📈 Progress Timeline](#-progress-timeline)
-- [🎯 Current Projects](#-current-projects)
-- [🔮 Future Plans](#-future-plans)
+- 📱 Responsive design
+- 🌙 Dark mode support
+- 🔍 Full-text search
+- 📊 Interactive resource monitoring
+- 🎨 Modern UI with animations
+- 📱 Mobile-friendly interface
 
-## 🌐 Network Infrastructure
+## 🛠️ Local Development
 
-### Core Components
-- 📡 **Router**: TP-Link Archer AX20
-- ![tp-link-archer-ax21-router-3](https://github.com/user-attachments/assets/44a1f4f4-bc81-41dd-8ec4-ad66fb7d1b4e)
+1. Install Hugo:
+   ```bash
+   # macOS
+   brew install hugo
 
-  - Wi-Fi 6 (AX1800)
-  - Dual-band: 2.4GHz + 5GHz
-  - 4x Gigabit LAN ports
-  - MU-MIMO support
-  - Advanced QoS features
+   # Linux
+   snap install hugo --classic
+   ```
 
-- 🔌 **Switch**: Netgear GS108Ev4
-- ![Screenshot 2025-03-09 222911](https://github.com/user-attachments/assets/990c55d5-b3a9-41e2-875e-f8470c280bc2)
+2. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/homelab-docs.git
+   cd homelab-docs
+   ```
 
-  - 8-Port Gigabit Managed
-  - VLAN support
-  - Link aggregation
-  - QoS capabilities
-  - Energy-efficient design
+3. Start the development server:
+   ```bash
+   hugo server -D
+   ```
 
-### Network Design
-- 🔀 VLANs (Planned):
-  - VLAN 10: Management
-  - VLAN 20: Servers
-  - VLAN 30: IoT Devices
-  - VLAN 40: Guest Network
+4. Visit `http://localhost:1313` to view the documentation.
 
-## 🖥️ Compute Resources
+## 🐳 Docker Deployment
 
-### Primary Virtualization Cluster
-- 🖥️ **Proxmox Host 1** (Active)
-  - Hardware: Dell OptiPlex 7040 SFF
-  - CPU: Intel i5-6500 (4C/4T)
-  - RAM: 32GB DDR4
-  - Storage:
-    - 1TB NVMe (OS & VMs)
-    - 2TB HDD (Bulk Storage)
-  - Role: Primary virtualization host
+Build and run the documentation using Docker:
 
-- 🖥️ **Proxmox Host 2** (Planned Q2 2025)
-  - Hardware: Dell OptiPlex 7040 SFF
-  - Specs: Will mirror Host 1
-  - Purpose: High-availability cluster
+```bash
+# Build the image
+docker build -t homelab-docs ./docs
 
-### Storage Solution
-- 💾 **NAS: Synology DS918+**
-  - Configuration: 4-Bay (Currently Diskless)
-  - Planned Storage: 4x 4TB NAS drives
-  - Features:
-    - Hardware transcoding
-    - Docker support
-    - Snapshot replication
-    - Cloud sync capabilities
+# Run the container
+docker run -p 80:80 homelab-docs
+```
 
-### Legacy Systems
-- 🏛️ **HP Compaq 8200 Elite SFF**
-  - Role: Testing & Development
-  - Use cases:
-    - Software testing
-    - Backup device
-    - Development environment
+## 🔄 CI/CD Pipeline
 
-## 🏗️ Physical Infrastructure
+The documentation is automatically built and deployed using GitHub Actions:
 
-### Rack Setup
-- 🗄️ **VEVOR 6U Wall Mount Cabinet**
-  - Dimensions: 15.5" Deep
-  - Security: Lockable front door
-  - Features:
-    - Mesh ventilation
-    - Cable management
-    - Wall-mountable design
+1. Push to `main` branch:
+   - Builds documentation
+   - Deploys to GitHub Pages
+   - Creates container image
+   - Sends notifications
 
-### Current Layout
-1. 1U - Patch Panel (Planned)
-2. 2U - Proxmox Host 1
-3. 2U - Synology NAS
-4. 1U - Cable Management
+2. Pull Request:
+   - Builds documentation
+   - Generates preview
+   - Creates PR comment with statistics
 
-## 📊 Power & Cost Analysis
+## 📝 Contributing
 
-### Current Power Consumption
-| Device | Idle | Load | Daily Avg |
-|--------|------|------|-----------|
-| Router (AX20) | 10W | 15W | ~12W |
-| Switch (GS108Ev4) | 5W | 8W | ~6W |
-| Proxmox Host 1 | 65W | 120W | ~80W |
-| Synology DS918+ | 30W | 60W | ~40W |
-| HP 8200 Elite | 50W | 100W | ~65W |
-| Rack Fans (Planned) | 10W | 20W | ~15W |
-| LED Strips (Planned) | 5W | 10W | ~7W |
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-### Monthly Cost Estimation
-- Average Power Rate: $0.12/kWh
-- Current Monthly Cost: ~$25
-- Projected Cost (Full Setup): ~x$40
+## 📄 License
 
-## 📈 Progress Timeline
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### ✅ Completed (Nov 2024 - Mar 2025)
-- 🎯 Initial network setup
-- 🖥️ Proxmox Host 1 deployment
-- 🌐 UniFi Controller installation
-- 📡 Wi-Fi optimization
+## 🔗 Links
 
-### 🔄 In Progress (Q2 2025)
-- 💾 NAS drive configuration
-- 🔌 Cable management overhaul
-- ⚡ UPS implementation
+- 📚 [Documentation](https://homelab.ahmed2.com)
+- 🐳 [Container Registry](https://github.com/yourusername/homelab-docs/packages)
+- 📝 [Issues](https://github.com/yourusername/homelab-docs/issues)
+- 🔄 [Pull Requests](https://github.com/yourusername/homelab-docs/pulls)
 
-### 🎯 Current Projects
-1. **High Availability Cluster**
-   - Status: Planning
-   - Timeline: Q2 2025
-   - Components: 2x Proxmox hosts
+## 🤝 Support
 
-2. **Backup Infrastructure**
-   - Status: In Progress
-   - Timeline: Q2 2025
-   - Storage: 16TB Raw
+For support, please:
+1. Check the [documentation](https://homelab.ahmed2.com)
+2. Search [existing issues](https://github.com/yourusername/homelab-docs/issues)
+3. Create a new issue if needed
 
-3. **Network Segmentation**
-   - Status: Planning
-   - Timeline: Q3 2025
-   - Focus: VLAN implementation
+## 🙏 Acknowledgments
 
-## 🔮 Future Plans
-
-### Short-term (Q2-Q3 2025)
-- 🔹 1U Cable Management Panel
-- 🔹 Rack-mounted Fans
-- 🔹 1U PDU Installation
-- 🔹 UPS Integration
-
-### Long-term (Q4 2025+)
-- 🔹 10Gb Network Backbone
-- 🔹 Additional Storage Node
-- 🔹 Kubernetes Cluster
-- 🔹 Home Automation Server
-
-## 📚 Documentation
-- [Network Setup](./docs/networking.md)
-- [Server Configuration](./docs/servers.md)
-- [Infrastructure Details](./docs/infrastructure.md)
-- [Power Analysis](./docs/power-consumption.md)
-
-## 🛠️ Automation
-- [Setup Scripts](./Scripts/)
-- [Monitoring Tools](./Scripts/monitoring-setup.sh)
-- [Backup Solutions](./Scripts/backup-setup.sh)
-
-## 📸 Gallery
-Check out the [images](./images) directory for photos and diagrams of the setup.
-
----
-*Last updated: March 2025* 
+- [Hugo](https://gohugo.io/) - Static site generator
+- [Docsy](https://www.docsy.dev/) - Hugo theme
+- [GitHub Actions](https://github.com/features/actions) - CI/CD platform

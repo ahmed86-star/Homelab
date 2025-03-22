@@ -1,0 +1,58 @@
+# Hugo default output directory
+/public/
+
+# Hugo generated resources
+/resources/
+
+# Hugo cache
+.hugo_build.lock
+
+# Node modules
+node_modules/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test coverage
+/coverage/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Docker
+.docker/
+
+# Local development
+*.local 

@@ -1,0 +1,88 @@
+name: 🚀 Deploy Documentation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+
+    - name: 🐳 Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: 🔑 Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 🏗️ Build and push documentation image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./docs
+        push: true
+        tags: |
+          ghcr.io/${{ github.repository }}:latest
+          ghcr.io/${{ github.repository }}:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: 📚 Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/public
+        publish_branch: gh-pages
+        commit_message: ${{ github.event.head_commit.message }}
+
+    - name: 📊 Generate documentation report
+      run: |
+        echo "Documentation Build Report" > report.md
+        echo "========================" >> report.md
+        echo "" >> report.md
+        echo "Build Time: $(date)" >> report.md
+        echo "Commit SHA: ${{ github.sha }}" >> report.md
+        echo "Branch: ${{ github.ref_name }}" >> report.md
+        echo "" >> report.md
+        echo "Statistics:" >> report.md
+        echo "- Total Pages: $(find ./docs/content -type f -name "*.md" | wc -l)" >> report.md
+        echo "- Total Images: $(find ./docs/static/images -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.gif" \) | wc -l)" >> report.md
+        echo "- Total Code Blocks: $(grep -r "```" ./docs/content | wc -l)" >> report.md
+
+    - name: 💬 Create PR comment
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const report = fs.readFileSync('report.md', 'utf8');
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: report
+          });
+
+    - name: 🔔 Send notification
+      if: github.ref == 'refs/heads/main'
+      run: |
+        if [ -n "${{ secrets.DISCORD_WEBHOOK_URL }}" ]; then
+          curl -X POST -H "Content-Type: application/json" \
+            -d "{\"content\":\"🎉 Documentation deployed successfully!\n\nView it at: https://homelab.ahmed2.com\"}" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+        fi 
