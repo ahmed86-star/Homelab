@@ -57,9 +57,21 @@ Build and run the documentation using Docker:
 # Build the image
 docker build -t homelab-docs ./docs
 
+<<<<<<< HEAD
 # Run the container
 docker run -p 80:80 homelab-docs
 ```
+=======
+### Storage Solution
+- 💾 **NAS: Synology DS918+**
+  - Configuration: 4-Bay (Currently 8TB)
+  - Planned Storage: 4x 4TB NAS drives
+  - Features:
+    - Hardware transcoding
+    - Docker support
+    - Snapshot replication
+    - Cloud sync capabilities
+>>>>>>> 3f2fdd0bde16f0089862b23fc4ef4ebf6724f21a
 
 ## 🔄 CI/CD Pipeline
 
@@ -76,6 +88,7 @@ The documentation is automatically built and deployed using GitHub Actions:
    - Generates preview
    - Creates PR comment with statistics
 
+<<<<<<< HEAD
 ## 📝 Contributing
 
 1. Fork the repository
@@ -84,6 +97,8 @@ The documentation is automatically built and deployed using GitHub Actions:
 4. Submit a pull request
 
 ## 📄 License
+=======
+>>>>>>> 3f2fdd0bde16f0089862b23fc4ef4ebf6724f21a
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
