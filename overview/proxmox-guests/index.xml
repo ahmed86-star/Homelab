@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Proxmox LXC Guests on My New Hugo Site</title><link>https://example.org/overview/proxmox-guests/</link><description>Recent content in Proxmox LXC Guests on My New Hugo Site</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://example.org/overview/proxmox-guests/index.xml" rel="self" type="application/rss+xml"/><item><title>Resource Management</title><link>https://example.org/overview/proxmox-guests/resource-management/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://example.org/overview/proxmox-guests/resource-management/</guid><description>&lt;h1 id="-resource-management-guide">🔧 Resource Management Guide&lt;/h1>
+&lt;p>This guide provides detailed information about managing resources for LXC guests in our Proxmox environment.&lt;/p>
+&lt;h2 id="-resource-allocation">📊 Resource Allocation&lt;/h2>
+&lt;h3 id="cpu-management">CPU Management&lt;/h3>
+&lt;h4 id="current-cpu-usage">Current CPU Usage&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># View CPU usage per container&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct monitor &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check CPU limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct config &lt;span style="color:#ae81ff">101&lt;/span> | grep cores
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="recommended-cpu-limits">Recommended CPU Limits&lt;/h4>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Container&lt;/th>
+ &lt;th>ID&lt;/th>
+ &lt;th>Recommended Cores&lt;/th>
+ &lt;th>Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>CasaOS&lt;/td>
+ &lt;td>101&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;td>High CPU usage for container management&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Homarr&lt;/td>
+ &lt;td>105&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;td>Moderate CPU usage for dashboard&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Cloudflared&lt;/td>
+ &lt;td>100&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;td>High CPU usage for tunnel processing&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Pi-hole&lt;/td>
+ &lt;td>104&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;td>Moderate CPU usage for DNS&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Proxmox Datacenter Manager&lt;/td>
+ &lt;td>103&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;td>High CPU usage for monitoring&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>ByteStash&lt;/td>
+ &lt;td>106&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;td>Moderate CPU usage for storage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Apache CouchDB&lt;/td>
+ &lt;td>102&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;td>High CPU usage for database operations&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Jenkins&lt;/td>
+ &lt;td>104&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;td>High CPU usage for builds&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>AdGuard&lt;/td>
+ &lt;td>101&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;td>Moderate CPU usage for DNS&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h4 id="setting-cpu-limits">Setting CPU Limits&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set CPU cores&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -cores &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set CPU units (relative weight)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -cpuunits &lt;span style="color:#ae81ff">1024&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Enable CPU hotplug&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -features cpu_hotplug&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="memory-management">Memory Management&lt;/h3>
+&lt;h4 id="current-memory-usage">Current Memory Usage&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># View memory usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct monitor &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check memory limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct config &lt;span style="color:#ae81ff">101&lt;/span> | grep memory
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="recommended-memory-limits">Recommended Memory Limits&lt;/h4>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Container&lt;/th>
+ &lt;th>ID&lt;/th>
+ &lt;th>Recommended RAM&lt;/th>
+ &lt;th>Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>CasaOS&lt;/td>
+ &lt;td>101&lt;/td>
+ &lt;td>2048MB&lt;/td>
+ &lt;td>High memory usage for management&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Homarr&lt;/td>
+ &lt;td>105&lt;/td>
+ &lt;td>1024MB&lt;/td>
+ &lt;td>Moderate memory usage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Cloudflared&lt;/td>
+ &lt;td>100&lt;/td>
+ &lt;td>512MB&lt;/td>
+ &lt;td>Low memory usage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Pi-hole&lt;/td>
+ &lt;td>104&lt;/td>
+ &lt;td>1024MB&lt;/td>
+ &lt;td>Moderate memory usage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Proxmox Datacenter Manager&lt;/td>
+ &lt;td>103&lt;/td>
+ &lt;td>2048MB&lt;/td>
+ &lt;td>High memory usage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>ByteStash&lt;/td>
+ &lt;td>106&lt;/td>
+ &lt;td>2048MB&lt;/td>
+ &lt;td>High memory usage for storage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Apache CouchDB&lt;/td>
+ &lt;td>102&lt;/td>
+ &lt;td>4096MB&lt;/td>
+ &lt;td>High memory usage for database&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Jenkins&lt;/td>
+ &lt;td>104&lt;/td>
+ &lt;td>4096MB&lt;/td>
+ &lt;td>High memory usage for builds&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>AdGuard&lt;/td>
+ &lt;td>101&lt;/td>
+ &lt;td>1024MB&lt;/td>
+ &lt;td>Moderate memory usage&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h4 id="setting-memory-limits">Setting Memory Limits&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set memory limit&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -memory &lt;span style="color:#ae81ff">2048&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Enable swap&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -swap &lt;span style="color:#ae81ff">1024&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set memory ballooning&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -balloon &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="storage-management">Storage Management&lt;/h3>
+&lt;h4 id="current-storage-usage">Current Storage Usage&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># View storage usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> df -h
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check storage limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct config &lt;span style="color:#ae81ff">101&lt;/span> | grep rootfs
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="recommended-storage-limits">Recommended Storage Limits&lt;/h4>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Container&lt;/th>
+ &lt;th>ID&lt;/th>
+ &lt;th>Recommended Storage&lt;/th>
+ &lt;th>Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>CasaOS&lt;/td>
+ &lt;td>101&lt;/td>
+ &lt;td>20GB&lt;/td>
+ &lt;td>High storage for logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Homarr&lt;/td>
+ &lt;td>105&lt;/td>
+ &lt;td>10GB&lt;/td>
+ &lt;td>Moderate storage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Cloudflared&lt;/td>
+ &lt;td>100&lt;/td>
+ &lt;td>5GB&lt;/td>
+ &lt;td>Low storage&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Pi-hole&lt;/td>
+ &lt;td>104&lt;/td>
+ &lt;td>10GB&lt;/td>
+ &lt;td>Moderate storage for logs&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Proxmox Datacenter Manager&lt;/td>
+ &lt;td>103&lt;/td>
+ &lt;td>20GB&lt;/td>
+ &lt;td>High storage for monitoring&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>ByteStash&lt;/td>
+ &lt;td>106&lt;/td>
+ &lt;td>50GB&lt;/td>
+ &lt;td>High storage for data&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Apache CouchDB&lt;/td>
+ &lt;td>102&lt;/td>
+ &lt;td>30GB&lt;/td>
+ &lt;td>High storage for database&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Jenkins&lt;/td>
+ &lt;td>104&lt;/td>
+ &lt;td>40GB&lt;/td>
+ &lt;td>High storage for builds&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>AdGuard&lt;/td>
+ &lt;td>101&lt;/td>
+ &lt;td>10GB&lt;/td>
+ &lt;td>Moderate storage&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h4 id="storage-operations">Storage Operations&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Resize storage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct resize &lt;span style="color:#ae81ff">101&lt;/span> rootfs 20G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Add storage device&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -mp0 /mnt/storage,mp&lt;span style="color:#f92672">=&lt;/span>/data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check storage performance&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> iostat -x &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="-performance-monitoring">📈 Performance Monitoring&lt;/h2>
+&lt;h3 id="real-time-monitoring">Real-time Monitoring&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Monitor container resources&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct monitor &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># View container statistics&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct status &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check container logs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct enter &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>journalctl -f
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="historical-data">Historical Data&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># View historical CPU usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rrdtool info /var/lib/rrdcached/db/pve2-storage.rrd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check historical memory usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rrdtool fetch /var/lib/rrdcached/db/pve2-storage.rrd AVERAGE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># View historical network usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rrdtool fetch /var/lib/rrdcached/db/pve2-storage.rrd AVERAGE
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="alert-configuration">Alert Configuration&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set up resource alerts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -features nesting&lt;span style="color:#f92672">=&lt;/span>1,keyctl&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Configure monitoring thresholds&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct config &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="-resource-optimization">🔄 Resource Optimization&lt;/h2>
+&lt;h3 id="cpu-optimization">CPU Optimization&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set CPU affinity&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -cores 2,cores&lt;span style="color:#f92672">=&lt;/span>0-1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Enable CPU hotplug&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -features cpu_hotplug&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set CPU units&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -cpuunits &lt;span style="color:#ae81ff">1024&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="memory-optimization">Memory Optimization&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Enable memory ballooning&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -balloon &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set swap limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -swap &lt;span style="color:#ae81ff">1024&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Configure memory limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -memory &lt;span style="color:#ae81ff">2048&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="storage-optimization">Storage Optimization&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Enable discard&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -features discard&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Configure storage limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct resize &lt;span style="color:#ae81ff">101&lt;/span> rootfs 20G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Set storage performance&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -mp0 /mnt/storage,mp&lt;span style="color:#f92672">=&lt;/span>/data,backup&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="-maintenance-procedures">🛠️ Maintenance Procedures&lt;/h2>
+&lt;h3 id="regular-checks">Regular Checks&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Daily resource check&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct monitor &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Weekly storage check&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> df -h
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Monthly performance review&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct status &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="resource-cleanup">Resource Cleanup&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Clean up unused resources&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> apt clean
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Remove old logs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> journalctl --vacuum-time&lt;span style="color:#f92672">=&lt;/span>7d
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Clear temporary files&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> rm -rf /tmp/*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="-troubleshooting">🔍 Troubleshooting&lt;/h2>
+&lt;h3 id="high-cpu-usage">High CPU Usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check process usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct enter &lt;span style="color:#ae81ff">101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Monitor specific processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> ps aux | grep high_cpu_process
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Adjust CPU limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -cores &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="memory-issues">Memory Issues&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check memory usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> free -h
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Monitor swap usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> swapon --show
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Adjust memory limits&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct set &lt;span style="color:#ae81ff">101&lt;/span> -memory &lt;span style="color:#ae81ff">2048&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="storage-problems">Storage Problems&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Check disk space&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> df -h
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Monitor disk I/O&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct exec &lt;span style="color:#ae81ff">101&lt;/span> iostat -x &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Resize storage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pct resize &lt;span style="color:#ae81ff">101&lt;/span> rootfs 20G
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="-best-practices">📝 Best Practices&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Resource Allocation&lt;/strong>&lt;/p></description></item></channel></rss>
