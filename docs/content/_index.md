@@ -1,12 +1,18 @@
 ---
-title: "Homelab Documentation"
-linkTitle: "Documentation"
-weight: 1
+title: "🏠 Homelab Documentation"
+linkTitle: "Home"
 ---
 
-# Homelab Documentation
+# Welcome to My Homelab Documentation
 
-Welcome to the documentation for my homelab project. This guide will help you understand, set up, and maintain your own homelab infrastructure.
+This documentation covers the setup and configuration of my homelab infrastructure.
+
+## Quick Links
+
+- [Overview](/overview/)
+- [Installation](/installation/)
+- [Development](/development/)
+- [Operations](/operations/)
 
 ## What is a Homelab?
 

@@ -1,4 +1,4 @@
-baseURL: "https://homelab.ahmed2.com/"
+baseURL: "https://ahmed86-star.github.io/Homelab/"
 languageCode: "en-us"
 title: "🏠 Homelab Documentation"
 theme: "docsy"
@@ -73,7 +73,6 @@ params:
   # Custom CSS
   custom_css:
   - "css/custom.css"
-
   # Custom JavaScript
   custom_js:
   - "js/custom.js"
@@ -103,10 +102,8 @@ build:
 
 # Output Configuration
 outputs:
-  home:
-  - HTML
-  - JSON
-  - RSS
+  home: [ "HTML", "RSS", "JSON" ]
+  section: [ "HTML", "RSS" ]
 
 # Security
 security:
@@ -169,3 +166,10 @@ rss:
   language: "en-us"
   limit: 20
   output: "rss.xml"
+
+# Build settings
+publishDir: "public"
+
+# Make sure we generate all necessary files
+uglyURLs: false
+canonifyURLs: true
