@@ -65,7 +65,7 @@ Welcome to my homelab adventure! This repository documents my journey in buildin
 
 ### Storage Solution
 - 💾 **NAS: Synology DS918+**
-  - Configuration: 4-Bay (Currently Diskless)
+  - Configuration: 4-Bay (Currently 8TB)
   - Planned Storage: 4x 4TB NAS drives
   - Features:
     - Hardware transcoding
@@ -98,23 +98,6 @@ Welcome to my homelab adventure! This repository documents my journey in buildin
 3. 2U - Synology NAS
 4. 1U - Cable Management
 
-## 📊 Power & Cost Analysis
-
-### Current Power Consumption
-| Device | Idle | Load | Daily Avg |
-|--------|------|------|-----------|
-| Router (AX20) | 10W | 15W | ~12W |
-| Switch (GS108Ev4) | 5W | 8W | ~6W |
-| Proxmox Host 1 | 65W | 120W | ~80W |
-| Synology DS918+ | 30W | 60W | ~40W |
-| HP 8200 Elite | 50W | 100W | ~65W |
-| Rack Fans (Planned) | 10W | 20W | ~15W |
-| LED Strips (Planned) | 5W | 10W | ~7W |
-
-### Monthly Cost Estimation
-- Average Power Rate: $0.12/kWh
-- Current Monthly Cost: ~$25
-- Projected Cost (Full Setup): ~x$40
 
 ## 📈 Progress Timeline
 
