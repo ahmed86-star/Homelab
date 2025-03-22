@@ -37,8 +37,8 @@ jobs:
         context: ./docs
         push: true
         tags: |
-          ghcr.io/${{ github.repository }}:latest
-          ghcr.io/${{ github.repository }}:${{ github.sha }}
+          ghcr.io/ahmed86-star/homelab:latest
+          ghcr.io/ahmed86-star/homelab:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
