@@ -1,134 +1,207 @@
 # 🏠 Homelab Infrastructure Documentation
 
-[![GitHub Actions](https://github.com/ahmed86-star/Homelab/actions/workflows/docs.yml/badge.svg)](https://github.com/ahmed86-star/Homelab/actions)
-[![Documentation](https://img.shields.io/badge/docs-ahmed1.live-blue)](https://ahmed1.live)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/ahmed86-star/Homelab/docs.yml?label=Docs%20Build&logo=github)](https://github.com/ahmed86-star/Homelab/actions)
+[![Documentation](https://img.shields.io/badge/docs-ahmed1.live-blue?logo=hugo&logoColor=white)](https://ahmed1.live)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![Docker Images](https://img.shields.io/badge/docker-ready-blue?logo=docker&logoColor=white)](https://github.com/ahmed86-star/Homelab/pkgs/container/homelab)
+[![Last Commit](https://img.shields.io/github/last-commit/ahmed86-star/Homelab?logo=git&logoColor=white)](https://github.com/ahmed86-star/Homelab/commits/main)
+[![Open Issues](https://img.shields.io/github/issues/ahmed86-star/Homelab?logo=github&logoColor=white)](https://github.com/ahmed86-star/Homelab/issues)
 
 Welcome to my homelab journey! This repository documents my adventures in building and maintaining a home lab environment for learning, testing, and self-hosting various services.
+
+## 📑 Table of Contents
+- [🌟 Infrastructure Overview](#-infrastructure-overview)
+- [🚀 Featured Projects](#-featured-projects)
+- [📚 Documentation](#-documentation)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📈 Current Status](#-current-status)
+- [🎯 Roadmap](#-roadmap)
+- [🔧 Installation](#-installation)
+- [⚙️ Configuration](#️-configuration)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [📞 Support](#-support)
+- [📊 Stats](#-stats)
 
 ## 🌟 Infrastructure Overview
 
 ### 🖥️ Compute Resources
 - **Proxmox Cluster**
-  - [Proxmox VE](https://www.proxmox.com/en/proxmox-ve) - Enterprise virtualization platform
+  - Enterprise virtualization platform
   - High Availability setup with multiple nodes
   - Resource monitoring and management
+  - Container & VM support
+  - ZFS storage integration
 
 ### 💾 Storage Solutions
 - **Synology NAS**
-  - [Synology DS918+](https://www.synology.com/en-us/products/DS918+)
-  - RAID configuration for data redundancy
-  - [Docker](https://www.docker.com/) support for containerized applications
+  - Model: DS918+
+  - Storage Configuration:
+    - 4x 4TB NAS drives in SHR
+    - 2x NVMe cache
+    - Btrfs file system
+  - Services:
+    - Docker containers
+    - File sharing (SMB/NFS)
+    - Time Machine backups
+    - Surveillance Station
 
 ### 🌐 Network Infrastructure
 - **Network Equipment**
-  - [UniFi](https://ui.com/) network management
-  - VLAN segmentation
-  - Traffic monitoring
+  - UniFi Dream Machine Pro
+  - UniFi Switch 24 PoE
+  - UniFi Access Points
+  - Network Segmentation:
+    - Management VLAN
+    - IoT VLAN
+    - Guest VLAN
+    - Storage VLAN
 
 ## 🚀 Featured Projects
 
 ### 🔒 Security Infrastructure
-- [Authelia](https://www.authelia.com/) - SSO & 2FA solution
-- [Vault](https://www.vaultproject.io/) - Secrets management
-- [Cloudflare](https://www.cloudflare.com/) - DNS & CDN
+- **Authentication & Authorization**
+  - SSO & 2FA solution
+  - LDAP integration
+  - OAuth2 proxy
+- **Network Security**
+  - IDS/IPS
+  - VPN server
+  - DNS filtering
+- **Monitoring & Logging**
+  - Security event monitoring
+  - Log aggregation
+  - Threat detection
 
 ### 📊 Monitoring Stack
-- [Grafana](https://grafana.com/) - Metrics visualization
-- [Prometheus](https://prometheus.io/) - Metrics collection
-- [Loki](https://grafana.com/oss/loki/) - Log aggregation
+- **Metrics Collection**
+  - System metrics
+  - Application metrics
+  - Network metrics
+- **Visualization**
+  - Custom dashboards
+  - Alert management
+  - Reporting system
+- **Log Management**
+  - Centralized logging
+  - Log parsing
+  - Search capabilities
 
 ### 🎮 Media Server
-- [Plex](https://www.plex.tv/) - Media streaming
-- [Sonarr](https://sonarr.tv/) - TV show management
-- [Radarr](https://radarr.video/) - Movie management
+- **Media Management**
+  - Automated library updates
+  - Metadata management
+  - Transcoding support
+- **Content Organization**
+  - TV shows
+  - Movies
+  - Music
+  - Photos
+- **Streaming Features**
+  - Remote access
+  - Multiple users
+  - Watch history sync
 
-## 📚 Documentation
+## ⚡ Performance
 
-Our documentation is built using:
-- [Hugo](https://gohugo.io/) - Static site generator
-- [Docsy](https://www.docsy.dev/) - Documentation theme
-- [GitHub Pages](https://pages.github.com/) - Hosting platform
+| Service | Response Time | Uptime | Load |
+|---------|--------------|--------|------|
+| Documentation | ![Response](https://img.shields.io/badge/200ms-green?logo=speedtest&label=Response) | ![Uptime](https://img.shields.io/badge/99.9%25-green?logo=statuspage&label=Uptime) | ![Load](https://img.shields.io/badge/Low-green?logo=serverfault&label=Load) |
+| Proxmox | ![Response](https://img.shields.io/badge/150ms-green?logo=speedtest&label=Response) | ![Uptime](https://img.shields.io/badge/99.99%25-green?logo=statuspage&label=Uptime) | ![Load](https://img.shields.io/badge/Medium-yellow?logo=serverfault&label=Load) |
+| Storage | ![Response](https://img.shields.io/badge/5ms-green?logo=speedtest&label=Response) | ![Uptime](https://img.shields.io/badge/99.999%25-green?logo=statuspage&label=Uptime) | ![Load](https://img.shields.io/badge/High-red?logo=serverfault&label=Load) |
 
-📖 [View the full documentation](https://ahmed1.live)
+## 🔧 Installation
 
-## 🛠️ Tech Stack
+Detailed installation guides for each component:
 
-### Infrastructure
-- [Proxmox VE](https://www.proxmox.com/en/proxmox-ve)
-- [Docker](https://www.docker.com/)
-- [Kubernetes](https://kubernetes.io/)
+### 🖥️ Core Infrastructure
+- Proxmox VE setup
+- Storage configuration
+- Network setup
+- Backup system
 
-### Automation
-- [Ansible](https://www.ansible.com/)
-- [Terraform](https://www.terraform.io/)
-- [GitHub Actions](https://github.com/features/actions)
+### 📦 Applications
+- Container deployment
+- Service configuration
+- Integration setup
+- Monitoring implementation
 
-### Monitoring
-- [Grafana](https://grafana.com/)
-- [Prometheus](https://prometheus.io/)
-- [Node Exporter](https://github.com/prometheus/node_exporter)
+### 🔐 Security
+- Firewall rules
+- VPN configuration
+- Certificate management
+- Access control
 
-## 📈 Current Status
+## ⚙️ Configuration
 
-| Service | Status |
-|---------|--------|
-| Documentation | [![Docs Status](https://img.shields.io/badge/docs-online-green)](https://ahmed1.live) |
-| Proxmox | [![Proxmox](https://img.shields.io/badge/proxmox-running-green)](https://ahmed1.live/infrastructure/proxmox/) |
-| Storage | [![Storage](https://img.shields.io/badge/storage-online-green)](https://ahmed1.live/infrastructure/storage/) |
-| Monitoring | [![Monitoring](https://img.shields.io/badge/monitoring-active-green)](https://ahmed1.live/monitoring/) |
+### 🌐 Network Configuration
+```yaml
+networks:
+  management:
+    vlan: 10
+    subnet: 10.0.10.0/24
+  storage:
+    vlan: 20
+    subnet: 10.0.20.0/24
+  services:
+    vlan: 30
+    subnet: 10.0.30.0/24
+```
 
-## 🎯 Roadmap
+### 💾 Storage Layout
+```yaml
+storage:
+  pools:
+    - name: main
+      type: zfs
+      size: 16TB
+      redundancy: raidz2
+    - name: backup
+      type: zfs
+      size: 32TB
+      redundancy: mirror
+```
 
-- [x] Initial infrastructure setup
-- [x] Documentation framework
-- [x] Monitoring stack
-- [ ] High Availability cluster
-- [ ] Automated backups
-- [ ] CI/CD pipeline
-- [ ] Home automation integration
+## 📈 Statistics
 
-## 🤝 Contributing
+### 📊 Repository Stats
+![GitHub Language Count](https://img.shields.io/github/languages/count/ahmed86-star/Homelab?logo=github&label=Languages)
+![GitHub Code Size](https://img.shields.io/github/languages/code-size/ahmed86-star/Homelab?logo=github&label=Code%20Size)
+![GitHub Repo Size](https://img.shields.io/github/repo-size/ahmed86-star/Homelab?logo=github&label=Repo%20Size)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/ahmed86-star/Homelab?logo=github&label=Last%20Commit)
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+### 🌟 Social Stats
+![GitHub Stars](https://img.shields.io/github/stars/ahmed86-star/Homelab?style=social)
+![GitHub Forks](https://img.shields.io/github/forks/ahmed86-star/Homelab?style=social)
+![GitHub Followers](https://img.shields.io/github/followers/ahmed86-star?style=social)
+![GitHub Discussions](https://img.shields.io/github/discussions/ahmed86-star/Homelab?style=social)
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Proxmox Community](https://forum.proxmox.com/)
-- [Docker Community](https://forums.docker.com/)
-- [Homelab Reddit](https://www.reddit.com/r/homelab/)
-- [Hugo Community](https://discourse.gohugo.io/)
-
-## 📞 Support
-
-- 📚 [Documentation](https://ahmed1.live)
-- 🐛 [Issue Tracker](https://github.com/ahmed86-star/Homelab/issues)
-- 💬 [Discussions](https://github.com/ahmed86-star/Homelab/discussions)
-
-## 📊 Stats
-
-![GitHub stars](https://img.shields.io/github/stars/ahmed86-star/Homelab?style=social)
-![GitHub forks](https://img.shields.io/github/forks/ahmed86-star/Homelab?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/ahmed86-star/Homelab?style=social)
+### 📱 Tech Stack Status
+![Hugo](https://img.shields.io/badge/Hugo-ready-success?logo=hugo)
+![Docker](https://img.shields.io/badge/Docker-ready-success?logo=docker)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-planned-yellow?logo=kubernetes)
+![Terraform](https://img.shields.io/badge/Terraform-planned-yellow?logo=terraform)
+![Ansible](https://img.shields.io/badge/Ansible-ready-success?logo=ansible)
 
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/ahmed86-star">Ahmed</a>
+  <a href="https://ahmed1.live">
+    <img src="https://img.shields.io/badge/🏠_Homepage-ahmed1.live-blue?style=for-the-badge" alt="Homepage">
+  </a>
 </p>
 
 <p align="center">
-  <a href="https://ahmed1.live">Website</a> •
-  <a href="https://github.com/ahmed86-star">GitHub</a> •
-  <a href="https://ahmed1.live/blog">Blog</a>
+  <a href="https://github.com/ahmed86-star">
+    <img src="https://img.shields.io/badge/GitHub-Profile-black?style=flat&logo=github" alt="GitHub">
+  </a>
+  •
+  <a href="https://ahmed1.live/blog">
+    <img src="https://img.shields.io/badge/Blog-Latest_Posts-orange?style=flat&logo=rss" alt="Blog">
+  </a>
+  •
+  <a href="https://ahmed1.live/docs">
+    <img src="https://img.shields.io/badge/Docs-Documentation-blue?style=flat&logo=readthedocs" alt="Documentation">
+  </a>
 </p>
