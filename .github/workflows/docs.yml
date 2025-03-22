@@ -66,33 +66,6 @@ jobs:
         publish_dir: ./docs/public
         commit_message: ${{ github.event.head_commit.message }}
 
-    - name: 📊 Generate documentation report
-      run: |
-        echo "Documentation Build Report" > report.md
-        echo "========================" >> report.md
-        echo "" >> report.md
-        echo "Build Time: $(date)" >> report.md
-        echo "Commit SHA: ${{ github.sha }}" >> report.md
-        echo "Branch: ${{ github.ref_name }}" >> report.md
-        echo "" >> report.md
-        echo "Statistics:" >> report.md
-        echo "- Total Pages: $(find ./docs/content -type f -name "*.md" | wc -l)" >> report.md
-        echo "- Total Images: $(find ./docs/static/images -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.gif" \) | wc -l)" >> report.md
-        echo "- Total Code Blocks: $(grep -r "```" ./docs/content | wc -l)" >> report.md
-
-    - name: 💬 Create PR comment
-      if: github.event_name == 'pull_request'
-      uses: actions/github-script@v7
-      with:
-        script: |
-          const report = fs.readFileSync('report.md', 'utf8');
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: report
-          });
-
     - name: 🔔 Send notification
       if: github.ref == 'refs/heads/main'
       run: |
