@@ -8,6 +8,9 @@
 [![Open Issues](https://img.shields.io/github/issues/ahmed86-star/Homelab?logo=github&logoColor=white)](https://github.com/ahmed86-star/Homelab/issues)
 
 Welcome to my homelab journey! This repository documents my adventures in building and maintaining a home lab environment for learning, testing, and self-hosting various services.
+![photo-1558494949-ef010cbdcc31](https://github.com/user-attachments/assets/051afc2a-6f90-461a-9262-b7e57d2585a3)
+
+
 
 ## 📑 Table of Contents
 - [🌟 Infrastructure Overview](#-infrastructure-overview)
@@ -49,10 +52,22 @@ Welcome to my homelab journey! This repository documents my adventures in buildi
 
 ### 🌐 Network Infrastructure
 - **Network Equipment**
-  - UniFi Dream Machine Pro
-  - UniFi Switch 24 PoE
-  - UniFi Access Points
-  - Network Segmentation:
+  -Network Equipment
+Routers, switches and networking gear
+
+
+TP-Link Archer AX20
+Type: Router
+Speed: AX1800 Wi-Fi 6
+Ports: 4x Gigabit LAN, 1x Gigabit WAN
+
+
+
+Netgear GS108Ev4
+Type: Managed Switch
+Ports: 8x Gigabit Ethernet
+Features: VLAN, QoS, Link Aggregation
+
     - Management VLAN
     - IoT VLAN
     - Guest VLAN
