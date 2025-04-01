@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Homelab Documentation",
-  description: "Documentation for my homelab infrastructure",
+  title: "My Homelab Journey",
+  description: "A showcase of my homelab infrastructure and projects",
 };
 
 export default function RootLayout({
