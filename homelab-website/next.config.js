@@ -5,6 +5,21 @@ const nextConfig = {
   images: {
     domains: ['avatars.githubusercontent.com'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'ahmed1.live',
+          },
+        ],
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig;
