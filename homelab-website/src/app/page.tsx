@@ -131,21 +131,27 @@ export default function Home() {
                 {/* Why Proxmox Cluster */}
                 <div className="bg-gray-700/30 p-6 rounded-lg border border-gray-600 mb-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-green-400">✅</span>
-                    <span>High Availability (HA) – If one node fails, workloads can shift.</span>
+                    <span className="text-2xl">🌟</span>
+                    <h3 className="text-xl font-bold text-green-500">Why I'm Setting Up a Proxmox Cluster</h3>
                   </div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-green-400">✅</span>
-                    <span>Easier Management – Control all nodes from one web interface.</span>
-                  </div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-green-400">✅</span>
-                    <span>Live Migration – Move VMs between nodes without downtime.</span>
-                  </div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-green-400">✅</span>
-                    <span>Shared Storage & Backups – A unified storage pool for all nodes.</span>
-                  </div>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-3">
+                      <span className="text-green-400">✅</span>
+                      <span>High Availability (HA) – If one node fails, workloads can shift.</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="text-green-400">✅</span>
+                      <span>Easier Management – Control all nodes from one web interface.</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="text-green-400">✅</span>
+                      <span>Live Migration – Move VMs between nodes without downtime.</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="text-green-400">✅</span>
+                      <span>Shared Storage & Backups – A unified storage pool for all nodes.</span>
+                    </li>
+                  </ul>
                 </div>
 
                 {/* Node Setup */}
@@ -275,18 +281,18 @@ export default function Home() {
               {/* Kubernetes Section */}
               <div className={`transform transition-all duration-1000 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-3xl">🚀</span>
-                  <h2 className="text-3xl font-bold text-green-500">Here's My Kubernetes Homelab: Lenovo ThinkCentre + Raspberry Pis</h2>
+                  <span className="text-2xl">🚀</span>
+                  <h2 className="text-2xl font-bold text-green-500">Here's My Kubernetes Homelab: Lenovo ThinkCentre + Raspberry Pis</h2>
                 </div>
-                <p className="leading-relaxed text-xl mb-6">
+                <p className="leading-relaxed text-lg mb-6">
                   Hey everyone! 👋 Today, I'm sharing how I built my K3s Kubernetes cluster using a Lenovo ThinkCentre M710q Tiny as the control plane and Raspberry Pis as worker nodes. This setup is perfect for learning Kubernetes on a budget. Later, I'll repurpose the Lenovo as a firewall using pfSense or OPNsense!
                 </p>
 
                 {/* Why This Setup */}
                 <div className="bg-gray-700/30 p-6 rounded-lg border border-gray-600 mb-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-3xl">🎯</span>
-                    <h3 className="text-2xl font-bold text-green-500">Why This Setup?</h3>
+                    <span className="text-2xl">🎯</span>
+                    <h3 className="text-xl font-bold text-green-500">Why This Setup?</h3>
                   </div>
                   <p className="mb-4">I wanted a dedicated Kubernetes cluster separate from my Proxmox homelab. My goals:</p>
                   <ul className="space-y-3">
@@ -301,11 +307,11 @@ export default function Home() {
                     <li className="flex items-center gap-3">
                       <span className="text-green-400">✅</span>
                       <span>Scalable – Start small, expand later</span>
-                    </li>
+          </li>
                     <li className="flex items-center gap-3">
                       <span className="text-green-400">✅</span>
                       <span>Real-World Learning – Running cloud-native tools like Longhorn, MinIO, and ArgoCD</span>
-                    </li>
+          </li>
                   </ul>
                 </div>
 
