@@ -4,15 +4,57 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 17, 24, 39;
-  --background-end-rgb: 17, 24, 39;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-    to bottom,
-    rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
-  );
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  font-size: 1.125rem; /* Increased base font size */
+  line-height: 1.75; /* Increased line height */
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6; /* Larger headings */
+  }
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-4; /* Larger subheadings */
+  }
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold mb-3; /* Larger section headings */
+  }
+  p {
+    @apply text-lg md:text-xl mb-4; /* Larger paragraph text */
+  }
+  a {
+    @apply text-lg md:text-xl; /* Larger link text */
+  }
+  li {
+    @apply text-lg md:text-xl mb-2; /* Larger list items */
+  }
+  code {
+    @apply text-base md:text-lg; /* Larger code text */
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; /* Wider container */
+  }
+  .card {
+    @apply p-8 md:p-10; /* More padding in cards */
+  }
+  .section {
+    @apply py-12 md:py-16 lg:py-20; /* More vertical spacing */
+  }
+  .button {
+    @apply text-lg md:text-xl px-6 py-3; /* Larger buttons */
+  }
 }

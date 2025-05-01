@@ -9,27 +9,28 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-gray-900">
-      <header className="bg-gray-800">
-        <nav className="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Top">
-          <div className="flex w-full items-center justify-between py-6">
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-green-500 font-mono">
-                &gt; Homelab
-              </Link>
-            </div>
-            <div className="flex items-center space-x-8">
+      <header className="bg-gray-800/50 border-b border-gray-700">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="text-2xl font-bold text-green-500 font-mono">
+              Homelab
+            </Link>
+            <nav className="flex items-center gap-6">
               <Link href="/" className="text-base font-medium text-gray-300 hover:text-green-500 font-mono">
-                &gt; Home
+                Home
               </Link>
               <Link href="/services" className="text-base font-medium text-gray-300 hover:text-green-500 font-mono">
-                &gt; Services
+                Services
               </Link>
               <Link href="/docs" className="text-base font-medium text-gray-300 hover:text-green-500 font-mono">
-                &gt; Documentation
+                Documentation
               </Link>
-            </div>
+              <Link href="/projects" className="text-base font-medium text-gray-300 hover:text-green-500 font-mono">
+                Projects
+              </Link>
+            </nav>
           </div>
-        </nav>
+        </div>
       </header>
       <main>{children}</main>
       <footer className="bg-gray-800 mt-auto">
