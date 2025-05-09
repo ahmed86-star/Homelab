@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    container_name: homarr
+    restart: unless-stopped
+    ports:
+      - "7575:7575"
+    volumes:
+      - ./data:/app/data/configs
+      - ./icons:/app/public/icons
+    environment:
+      - TZ=UTC
+    networks:
+      - homarr_network
+
+networks:
+  homarr_network:
+    driver: bridge 

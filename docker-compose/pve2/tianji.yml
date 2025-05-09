@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  tianji:
+    image: tianji/tianji:latest
+    container_name: tianji
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - TZ=UTC
+      - TIANJI_SECRET_KEY=${TIANJI_SECRET_KEY}
+    networks:
+      - tianji_network
+
+networks:
+  tianji_network:
+    driver: bridge 

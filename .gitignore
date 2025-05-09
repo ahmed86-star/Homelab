@@ -28,8 +28,17 @@ Thumbs.db
 
 # Environment files
 .env
-.env.local
-.env.*.local
+*.env
+
+# Data directories
+**/data/
+**/postgres-data/
+**/redis-data/
+**/etc-pihole/
+**/etc-dnsmasq.d/
+**/work/
+**/conf/
+**/icons/
 
 # Log files
 *.log

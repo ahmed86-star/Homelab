@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  trillium:
+    image: nriver/trillium:latest
+    container_name: trillium
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/trillium-data
+    environment:
+      - TZ=UTC
+      - TRILIUM_DATA_DIR=/trillium-data
+    networks:
+      - trillium_network
+
+networks:
+  trillium_network:
+    driver: bridge 

@@ -220,3 +220,74 @@ storage:
     <img src="https://img.shields.io/badge/Docs-Documentation-blue?style=flat&logo=readthedocs" alt="Documentation">
   </a>
 </p>
+
+# Homelab Docker Compose Configurations
+
+This repository contains Docker Compose configurations for various services running on my Proxmox homelab environment.
+
+## Structure
+
+The repository is organized into two main directories:
+
+### PVE1 Services
+- ByteStash
+- CasaOS
+- Cloudflared
+- Homarr
+- OpenWebUI
+- Pi-hole
+- Trillium
+
+### PVE2 Services
+- AdGuard Home
+- Cloudflared
+- Grafana
+- InfluxDB
+- Jenkins
+- MinIO
+- NetBox
+- Tianji
+
+## Setup Instructions
+
+1. Clone this repository
+2. Create a `.env` file in each service directory with the required environment variables
+3. Run `docker-compose up -d` in the respective service directory
+
+## Environment Variables
+
+Each service requires specific environment variables. Create a `.env` file in the service directory with the following variables:
+
+### Common Variables
+- `TZ`: Timezone (e.g., UTC)
+
+### Service-Specific Variables
+- Cloudflared: `TUNNEL_TOKEN`
+- Grafana: `GRAFANA_ADMIN_USER`, `GRAFANA_ADMIN_PASSWORD`
+- InfluxDB: `INFLUXDB_USERNAME`, `INFLUXDB_PASSWORD`, `INFLUXDB_ORG`, `INFLUXDB_BUCKET`, `INFLUXDB_TOKEN`
+- MinIO: `MINIO_ROOT_USER`, `MINIO_ROOT_PASSWORD`
+- NetBox: `NETBOX_DB_PASSWORD`, `NETBOX_SECRET_KEY`
+- Pi-hole: `PIHOLE_PASSWORD`
+- Tianji: `TIANJI_SECRET_KEY`
+
+## Ports
+
+Each service uses specific ports. Make sure these ports are available on your host system:
+
+- AdGuard Home: 53, 67, 68, 80, 443, 3000, 853, 784, 8853, 5443
+- ByteStash: 8080
+- CasaOS: 80, 443
+- Grafana: 3000
+- Homarr: 7575
+- InfluxDB: 8086
+- Jenkins: 8080, 50000
+- MinIO: 9000, 9001
+- NetBox: 8000
+- OpenWebUI: 3000
+- Pi-hole: 53, 80
+- Tianji: 8080
+- Trillium: 8080
+
+## License
+
+MIT License

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  netbox:
+    image: netboxcommunity/netbox:latest
+    container_name: netbox
+    restart: unless-stopped
+    ports:
+      - "8000:8080"
+    environment:
+      - DB_NAME=netbox
+      - DB_USER=netbox
+      - DB_PASSWORD=${NETBOX_DB_PASSWORD}
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SECRET_KEY=${NETBOX_SECRET_KEY}
+      - ALLOWED_HOSTS=*
+    volumes:
+      - ./data:/etc/netbox/config
+      - ./reports:/etc/netbox/reports
+      - ./scripts:/etc/netbox/scripts
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - netbox_network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: netbox-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=netbox
+      - POSTGRES_USER=netbox
+      - POSTGRES_PASSWORD=${NETBOX_DB_PASSWORD}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - netbox_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: netbox-redis
+    restart: unless-stopped
+    volumes:
+      - ./redis-data:/data
+    networks:
+      - netbox_network
+
+networks:
+  netbox_network:
+    driver: bridge 
