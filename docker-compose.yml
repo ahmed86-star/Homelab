@@ -1,0 +1,258 @@
+version: '3.8'
+
+services:
+  # PVE1 Services
+  bytestash:
+    image: ghcr.io/bytemark/bytestash:latest
+    container_name: bytestash
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/bytestash:/data
+    environment:
+      - TZ=UTC
+    networks:
+      - homelab_network
+
+  casaos:
+    image: icewhale/casaos:latest
+    container_name: casaos
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/casaos:/var/lib/casaos
+    environment:
+      - TZ=UTC
+    networks:
+      - homelab_network
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      - homelab_network
+
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    container_name: homarr
+    restart: unless-stopped
+    ports:
+      - "7575:7575"
+    volumes:
+      - ./data/homarr/configs:/app/data/configs
+      - ./data/homarr/icons:/app/public/icons
+    environment:
+      - TZ=UTC
+    networks:
+      - homelab_network
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui
+    restart: unless-stopped
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434/api
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+    networks:
+      - homelab_network
+
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80"
+    environment:
+      - TZ=UTC
+      - WEBPASSWORD=${PIHOLE_PASSWORD}
+      - VIRTUAL_HOST=pihole.local
+    volumes:
+      - ./data/pihole/etc-pihole:/etc/pihole
+      - ./data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    networks:
+      - homelab_network
+
+  trillium:
+    image: nriver/trillium:latest
+    container_name: trillium
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/trillium:/trillium-data
+    environment:
+      - TZ=UTC
+      - TRILIUM_DATA_DIR=/trillium-data
+    networks:
+      - homelab_network
+
+  # PVE2 Services
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguardhome
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "68:68/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+      - "3000:3000/tcp"
+      - "853:853/tcp"
+      - "784:784/udp"
+      - "853:853/udp"
+      - "8853:8853/udp"
+      - "5443:5443/tcp"
+      - "5443:5443/udp"
+    volumes:
+      - ./data/adguard/work:/opt/adguardhome/work
+      - ./data/adguard/conf:/opt/adguardhome/conf
+    environment:
+      - TZ=UTC
+    networks:
+      - homelab_network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - homelab_network
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+    networks:
+      - homelab_network
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./data/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=UTC
+    networks:
+      - homelab_network
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./data/minio:/data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    command: server /data --console-address ":9001"
+    networks:
+      - homelab_network
+
+  netbox:
+    image: netboxcommunity/netbox:latest
+    container_name: netbox
+    restart: unless-stopped
+    ports:
+      - "8000:8080"
+    environment:
+      - DB_NAME=netbox
+      - DB_USER=netbox
+      - DB_PASSWORD=${NETBOX_DB_PASSWORD}
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SECRET_KEY=${NETBOX_SECRET_KEY}
+      - ALLOWED_HOSTS=*
+    volumes:
+      - ./data/netbox/config:/etc/netbox/config
+      - ./data/netbox/reports:/etc/netbox/reports
+      - ./data/netbox/scripts:/etc/netbox/scripts
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - homelab_network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: netbox-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=netbox
+      - POSTGRES_USER=netbox
+      - POSTGRES_PASSWORD=${NETBOX_DB_PASSWORD}
+    volumes:
+      - ./data/netbox/postgres:/var/lib/postgresql/data
+    networks:
+      - homelab_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: netbox-redis
+    restart: unless-stopped
+    volumes:
+      - ./data/netbox/redis:/data
+    networks:
+      - homelab_network
+
+  tianji:
+    image: tianji/tianji:latest
+    container_name: tianji
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/tianji:/app/data
+    environment:
+      - TZ=UTC
+      - TIANJI_SECRET_KEY=${TIANJI_SECRET_KEY}
+    networks:
+      - homelab_network
+
+networks:
+  homelab_network:
+    driver: bridge 
