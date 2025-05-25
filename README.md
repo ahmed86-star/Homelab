@@ -1,5 +1,9 @@
 # 🏠 Homelab Infrastructure Documentation
 
+
+https://www.ahmed1.live/
+
+
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/ahmed86-star/Homelab/docs.yml?label=Docs%20Build&logo=github)](https://github.com/ahmed86-star/Homelab/actions)
 [![Documentation](https://img.shields.io/badge/docs-ahmed1.live-blue?logo=hugo&logoColor=white)](https://ahmed1.live)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?logo=opensourceinitiative&logoColor=white)](LICENSE)
