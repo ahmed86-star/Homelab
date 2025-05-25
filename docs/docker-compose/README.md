@@ -2,6 +2,24 @@
 
 This directory contains Docker Compose files for services running on two Proxmox nodes (PVE1 and PVE2) in my personal homelab setup. These configurations have been tested and optimized for my specific use case.
 
+## 👨‍💻 About Me
+
+- **Role**: Cloud Engineer / DevOps
+- **GitHub**: [@ahmed86-star](https://github.com/ahmed86-star)
+- **GitLab**: [@ahmed86-star](https://gitlab.com/ahmed86-star)
+
+### Current Focus
+- 🎯 Compiling projects/lab writeups
+- 📚 Obtaining Sec+ & CySA+ certifications
+- 🚀 Working towards AWS Certified Cloud Practitioner & Azure Fundamentals
+- 🧠 Learning Python scripting & Cloud Detection/Response for Azure
+- 👥 Interested in Cloud Security Projects, Threat Detection, Home Labs & more
+
+### Tech Stack (In Progress)
+- 🌱 Kubernetes
+- 🌱 Terraform
+- 🌱 Advanced AWS services
+
 ## 🏗️ Infrastructure Overview
 
 ### PVE1 (Primary Node)
