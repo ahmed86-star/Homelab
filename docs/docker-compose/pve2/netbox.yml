@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  netbox:
+    image: netboxcommunity/netbox:latest
+    container_name: netbox
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+      - DB_NAME=netbox
+      - DB_USER=netbox
+      - DB_PASSWORD=${NETBOX_DB_PASSWORD}
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SECRET_KEY=${NETBOX_SECRET_KEY}
+    volumes:
+      - ./data:/opt/netbox/netbox/media
+    ports:
+      - "8000:8080"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - homelab
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: netbox-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=netbox
+      - POSTGRES_USER=netbox
+      - POSTGRES_PASSWORD=${NETBOX_DB_PASSWORD}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - homelab
+
+  redis:
+    image: redis:7-alpine
+    container_name: netbox-redis
+    restart: unless-stopped
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    external: true 

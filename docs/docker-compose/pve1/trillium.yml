@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  trillium:
+    image: nriver/trillium:latest
+    container_name: trillium
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    volumes:
+      - ./data:/trillium-data
+    ports:
+      - "8080:8080"
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    external: true 

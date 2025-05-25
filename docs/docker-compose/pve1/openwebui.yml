@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+      - OLLAMA_API_BASE_URL=http://ollama:11434/api
+    volumes:
+      - ./data:/app/backend/data
+    ports:
+      - "3000:8080"
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    external: true 

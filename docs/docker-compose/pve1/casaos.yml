@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  casaos:
+    image: icewhale/casaos:latest
+    container_name: casaos
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/casaos:/var/lib/casaos
+    ports:
+      - "80:80"
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    external: true 
