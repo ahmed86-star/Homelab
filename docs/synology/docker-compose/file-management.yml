@@ -1,0 +1,182 @@
+version: '3.8'
+
+services:
+  # Nextcloud - File sharing and collaboration platform
+  nextcloud:
+    image: nextcloud:latest
+    container_name: synology-nextcloud
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - MYSQL_HOST=nextcloud-db
+    - MYSQL_DATABASE=nextcloud
+    - MYSQL_USER=nextcloud
+    - MYSQL_PASSWORD=your_secure_password
+    - NEXTCLOUD_ADMIN_USER=admin
+    - NEXTCLOUD_ADMIN_PASSWORD=your_secure_password
+    - NEXTCLOUD_TRUSTED_DOMAINS=synology.local,nextcloud.synology.local
+    volumes:
+    - ./configs/nextcloud:/var/www/html/config
+    - ./configs/nextcloud/apps:/var/www/html/custom_apps
+    - ./configs/nextcloud/themes:/var/www/html/themes
+    - nextcloud-data:/var/www/html/data
+    - /volume1/nextcloud:/var/www/html/data/user/files
+    ports:
+    - "8080:80"
+    networks:
+    - synology-network
+    depends_on:
+    - nextcloud-db
+    - nextcloud-redis
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.synology.local`)"
+
+  # Nextcloud Database - MariaDB
+  nextcloud-db:
+    image: mariadb:10.6
+    container_name: synology-nextcloud-db
+    restart: unless-stopped
+    environment:
+    - MYSQL_ROOT_PASSWORD=your_secure_root_password
+    - MYSQL_DATABASE=nextcloud
+    - MYSQL_USER=nextcloud
+    - MYSQL_PASSWORD=your_secure_password
+    volumes:
+    - nextcloud-db-data:/var/lib/mysql
+    - ./configs/nextcloud/mysql:/etc/mysql/conf.d
+    networks:
+    - synology-network
+
+  # Nextcloud Redis - Caching
+  nextcloud-redis:
+    image: redis:7-alpine
+    container_name: synology-nextcloud-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+    - nextcloud-redis-data:/data
+    networks:
+    - synology-network
+
+  # Filebrowser - Web file manager
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: synology-filebrowser
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - ./configs/filebrowser:/config
+    - /volume1:/srv
+    ports:
+    - "8081:80"
+    networks:
+    - synology-network
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.filebrowser.rule=Host(`files.synology.local`)"
+
+  # Syncthing - File synchronization
+  syncthing:
+    image: linuxserver/syncthing:latest
+    container_name: synology-syncthing
+    restart: unless-stopped
+    environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=UTC
+    volumes:
+    - ./configs/syncthing:/config
+    - /volume1/syncthing:/data1
+    - /volume1/photos:/data2
+    - /volume1/documents:/data3
+    ports:
+    - "8384:8384"
+    - "22000:22000"
+    - "21027:21027/udp"
+    networks:
+    - synology-network
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.syncthing.rule=Host(`syncthing.synology.local`)"
+
+  # MinIO - S3-compatible object storage
+  minio:
+    image: minio/minio:latest
+    container_name: synology-minio
+    restart: unless-stopped
+    environment:
+    - MINIO_ROOT_USER=minioadmin
+    - MINIO_ROOT_PASSWORD=your_secure_password
+    volumes:
+    - minio-data:/data
+    ports:
+    - "9000:9000"
+    - "9001:9001"
+    networks:
+    - synology-network
+    command: server /data --console-address ":9001"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.minio.rule=Host(`minio.synology.local`)"
+
+  # Samba - Windows file sharing
+  samba:
+    image: dperson/samba:latest
+    container_name: synology-samba
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - USERID=1000
+    - GROUPID=1000
+    volumes:
+    - ./configs/samba:/etc/samba
+    - /volume1:/shares
+    ports:
+    - "137:137/udp"
+    - "138:138/udp"
+    - "139:139"
+    - "445:445"
+    networks:
+    - synology-network
+
+  # NFS Server - Network file system
+  nfs-server:
+    image: itsthenetwork/nfs-server-alpine:latest
+    container_name: synology-nfs
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - SHARED_DIRECTORY=/data
+    volumes:
+    - ./configs/nfs:/etc/exports:ro
+    - /volume1:/data
+    ports:
+    - "2049:2049"
+    - "32765:32765"
+    - "32766:32766"
+    - "32767:32767"
+    networks:
+    - synology-network
+    cap_add:
+    - SYS_ADMIN
+
+volumes:
+  nextcloud-data:
+    driver: local
+  nextcloud-db-data:
+    driver: local
+  nextcloud-redis-data:
+    driver: local
+  minio-data:
+    driver: local
+
+networks:
+  synology-network:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.22.0.0/16

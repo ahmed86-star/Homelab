@@ -1,0 +1,154 @@
+version: '3.8'
+
+services:
+  # Pi-hole - DNS ad-blocker and sinkhole
+  pihole:
+    image: pihole/pihole:latest
+    container_name: synology-pihole
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - WEBPASSWORD=your_secure_password
+    - PIHOLE_DNS_=1.1.1.1;1.0.0.1
+    - DNSMASQ_USER=pihole
+    - VIRTUAL_HOST=pihole.synology.local
+    - PROXY_LOCATION=pihole
+    - ServerIP=192.168.1.10
+    - PIHOLE_DNS_=1.1.1.1;1.0.0.1
+    - DNSMASQ_LISTENING=single
+    - PIHOLE_DOMAIN=synology.local
+    - DHCP_ACTIVE=true
+    - DHCP_START=192.168.1.200
+    - DHCP_END=192.168.1.250
+    - DHCP_ROUTER=192.168.1.1
+    - DHCP_LEASETIME=24
+    volumes:
+    - ./configs/pihole:/etc/pihole
+    - ./configs/pihole/dnsmasq.d:/etc/dnsmasq.d
+    ports:
+    - "53:53/tcp"
+    - "53:53/udp"
+    - "80:80"
+    - "443:443"
+    networks:
+    - synology-network
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.pihole.rule=Host(`pihole.synology.local`)"
+    cap_add:
+    - NET_ADMIN
+
+  # AdGuard Home - DNS protection and filtering
+  adguard-home:
+    image: adguard/adguardhome:latest
+    container_name: synology-adguard
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    volumes:
+    - ./configs/adguard:/opt/adguardhome/conf
+    - ./configs/adguard/work:/opt/adguardhome/work
+    ports:
+    - "3000:3000"
+    - "53:53/tcp"
+    - "53:53/udp"
+    - "67:67/udp"
+    - "68:68/udp"
+    - "80:80"
+    - "443:443"
+    - "443:443/udp"
+    - "3001:3001"
+    - "853:853"
+    - "784:784/udp"
+    - "853:853/udp"
+    - "8853:8853/udp"
+    - "5443:5443/tcp"
+    - "5443:5443/udp"
+    networks:
+    - synology-network
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.adguard.rule=Host(`adguard.synology.local`)"
+    cap_add:
+    - NET_ADMIN
+
+  # WireGuard - VPN server
+  wireguard:
+    image: linuxserver/wireguard:latest
+    container_name: synology-wireguard
+    restart: unless-stopped
+    environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=UTC
+    - SERVERURL=auto
+    - SERVERPORT=51820
+    - PEERS=3
+    - PEERDNS=auto
+    - INTERNAL_SUBNET=10.13.13.0
+    - ALLOWEDIPS=0.0.0.0/0
+    volumes:
+    - ./configs/wireguard:/config
+    - /lib/modules:/lib/modules
+    ports:
+    - "51820:51820/udp"
+    networks:
+    - synology-network
+    cap_add:
+    - NET_ADMIN
+    - SYS_MODULE
+    sysctls:
+    - net.ipv4.conf.all.src_valid_mark=1
+    - net.ipv4.ip_forward=1
+
+  # Fail2ban - Intrusion prevention
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: synology-fail2ban
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - F2B_LOG_LEVEL=INFO
+    - F2B_LOG_TARGET=STDOUT
+    - F2B_DB_PURGE_AGE=30d
+    volumes:
+    - ./configs/fail2ban:/data
+    - /var/log:/var/log:ro
+    ports:
+    - "2222:2222"
+    networks:
+    - synology-network
+    cap_add:
+    - NET_ADMIN
+    - NET_RAW
+
+  # CrowdSec - Modern security engine
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: synology-crowdsec
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - COLLECTIONS=linux,nginx,apache2
+    volumes:
+    - ./configs/crowdsec:/etc/crowdsec
+    - /var/log:/var/log:ro
+    ports:
+    - "6060:6060"
+    networks:
+    - synology-network
+
+volumes:
+  pihole-data:
+    driver: local
+  adguard-data:
+    driver: local
+  wireguard-data:
+    driver: local
+
+networks:
+  synology-network:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.21.0.0/16

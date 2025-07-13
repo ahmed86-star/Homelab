@@ -1,0 +1,99 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+- "alert_rules.yml"
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+scrape_configs:
+# Prometheus itself
+- job_name: 'prometheus'
+  static_configs:
+  - targets: [ 'localhost:9090' ]
+
+# Node Exporter for system metrics
+- job_name: 'node-exporter'
+  static_configs:
+  - targets: [ 'node-exporter:9100' ]
+
+# Docker containers
+- job_name: 'docker'
+  static_configs:
+  - targets: [ 'cadvisor:8080' ]
+
+# Synology NAS metrics
+- job_name: 'synology'
+  static_configs:
+  - targets: [ 'synology-nas:5000' ]
+  metrics_path: '/webapi/entry.cgi'
+  params:
+    api: [ 'SYNO.Core.System.Utilization' ]
+    version: [ '1' ]
+    method: [ 'get' ]
+
+# Grafana
+- job_name: 'grafana'
+  static_configs:
+  - targets: [ 'grafana:3000' ]
+
+# InfluxDB
+- job_name: 'influxdb'
+  static_configs:
+  - targets: [ 'influxdb:8086' ]
+
+# Pi-hole
+- job_name: 'pihole'
+  static_configs:
+  - targets: [ 'pihole:80' ]
+  metrics_path: '/admin/api.php'
+  params:
+    status: [ 'enabled' ]
+
+# AdGuard Home
+- job_name: 'adguard'
+  static_configs:
+  - targets: [ 'adguard-home:3000' ]
+  metrics_path: '/metrics'
+
+# Nextcloud
+- job_name: 'nextcloud'
+  static_configs:
+  - targets: [ 'nextcloud:80' ]
+  metrics_path: '/status.php'
+
+# Filebrowser
+- job_name: 'filebrowser'
+  static_configs:
+  - targets: [ 'filebrowser:80' ]
+
+# Syncthing
+- job_name: 'syncthing'
+  static_configs:
+  - targets: [ 'syncthing:8384' ]
+  metrics_path: '/rest/metrics'
+
+# MinIO
+- job_name: 'minio'
+  static_configs:
+  - targets: [ 'minio:9000' ]
+  metrics_path: '/minio/v2/metrics/cluster'
+
+# Network monitoring
+- job_name: 'network'
+  static_configs:
+  - targets: [ '192.168.1.1:9100' ] # Router
+  - targets: [ '192.168.1.10:9100' ] # Synology NAS
+  scrape_interval: 30s
+
+# Security monitoring
+- job_name: 'security'
+  static_configs:
+  - targets: [ 'fail2ban:2222' ]
+  - targets: [ 'crowdsec:6060' ]
+  scrape_interval: 60s
