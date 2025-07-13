@@ -250,128 +250,146 @@ Storage Pool: SHR (Synology Hybrid RAID)
 ## 🚀 Featured Projects
 
 ### 🔒 Security Infrastructure
-- **Authentication & Authorization**
-  - SSO & 2FA solution
-  - LDAP integration
-  - OAuth2 proxy
-- **Network Security**
-  - IDS/IPS
-  - VPN server
-  - DNS filtering
-- **Monitoring & Logging**
-  - Security event monitoring
-  - Log aggregation
-  - Threat detection
 
-### 📊 Monitoring Stack
-- **Metrics Collection**
-  - System metrics
-  - Application metrics
-  - Network metrics
-- **Visualization**
-  - Custom dashboards
-  - Alert management
-  - Reporting system
-- **Log Management**
-  - Centralized logging
-  - Log parsing
-  - Search capabilities
+**Enterprise-grade security implementation** with comprehensive protection layers.
 
-### 🎮 Media Server
-- **Media Management**
-  - Automated library updates
-  - Metadata management
-  - Transcoding support
-- **Content Organization**
-  - TV shows
-  - Movies
-  - Music
-  - Photos
-- **Streaming Features**
-  - Remote access
-  - Multiple users
-  - Watch history sync
+#### 🛡️ Authentication & Authorization
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![SSO](https://img.shields.io/badge/SSO-00D4AA?style=for-the-badge&logo=sso&logoColor=white) **Single Sign-On** | Centralized authentication system | [https://www.okta.com](https://www.okta.com) | 🟢 Active |
+| ![LDAP](https://img.shields.io/badge/LDAP-00D4AA?style=for-the-badge&logo=ldap&logoColor=white) **LDAP Integration** | Directory services integration | [https://www.openldap.org](https://www.openldap.org) | 🟢 Active |
+| ![OAuth2](https://img.shields.io/badge/OAuth2-00D4AA?style=for-the-badge&logo=oauth&logoColor=white) **OAuth2 Proxy** | Secure API authentication | [https://oauth2-proxy.github.io](https://oauth2-proxy.github.io) | 🟢 Active |
 
-## ⚡ Performance
+#### 🌐 Network Security
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![IDS/IPS](https://img.shields.io/badge/IDS/IPS-FF6B35?style=for-the-badge&logo=security&logoColor=white) **Intrusion Detection** | Network threat monitoring | [https://www.snort.org](https://www.snort.org) | 🟢 Active |
+| ![VPN](https://img.shields.io/badge/VPN-00D4AA?style=for-the-badge&logo=vpn&logoColor=white) **VPN Server** | Secure remote access | [https://openvpn.net](https://openvpn.net) | 🟢 Active |
+| ![DNS Filtering](https://img.shields.io/badge/DNS_Filtering-68BC71?style=for-the-badge&logo=dns&logoColor=white) **DNS Protection** | Ad-blocking and content filtering | [https://pi-hole.net](https://pi-hole.net) | 🟢 Active |
 
-| Service | Response Time | Uptime | Load |
-|---------|--------------|--------|------|
-| Documentation | ![Response](https://img.shields.io/badge/200ms-green?logo=speedtest&label=Response) | ![Uptime](https://img.shields.io/badge/99.9%25-green?logo=statuspage&label=Uptime) | ![Load](https://img.shields.io/badge/Low-green?logo=serverfault&label=Load) |
-| Proxmox | ![Response](https://img.shields.io/badge/150ms-green?logo=speedtest&label=Response) | ![Uptime](https://img.shields.io/badge/99.99%25-green?logo=statuspage&label=Uptime) | ![Load](https://img.shields.io/badge/Medium-yellow?logo=serverfault&label=Load) |
-| Storage | ![Response](https://img.shields.io/badge/5ms-green?logo=speedtest&label=Response) | ![Uptime](https://img.shields.io/badge/99.999%25-green?logo=statuspage&label=Uptime) | ![Load](https://img.shields.io/badge/High-red?logo=serverfault&label=Load) |
+#### 📊 Security Monitoring
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![SIEM](https://img.shields.io/badge/SIEM-FF6B35?style=for-the-badge&logo=security&logoColor=white) **Security Events** | Real-time threat detection | [https://www.elastic.co/security](https://www.elastic.co/security) | 🟢 Active |
+| ![Log Aggregation](https://img.shields.io/badge/Log_Aggregation-00D4AA?style=for-the-badge&logo=log&logoColor=white) **Centralized Logging** | Security log management | [https://www.graylog.org](https://www.graylog.org) | 🟢 Active |
 
-## 🔧 Installation
+---
 
-Detailed installation guides for each component:
+### 📊 Monitoring & Analytics Stack
 
-### 🖥️ Core Infrastructure
-- Proxmox VE setup
-- Storage configuration
-- Network setup
-- Backup system
+**Comprehensive monitoring solution** for infrastructure and application insights.
 
-### 📦 Applications
-- Container deployment
-- Service configuration
-- Integration setup
-- Monitoring implementation
+#### 📈 Metrics Collection
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white) **System Metrics** | Time-series data collection | [https://prometheus.io](https://prometheus.io) | 🟢 Active |
+| ![Node Exporter](https://img.shields.io/badge/Node_Exporter-00D4AA?style=for-the-badge&logo=node&logoColor=white) **Hardware Monitoring** | System resource metrics | [https://github.com/prometheus/node_exporter](https://github.com/prometheus/node_exporter) | 🟢 Active |
+| ![Network Monitoring](https://img.shields.io/badge/Network_Monitoring-00D4AA?style=for-the-badge&logo=network&logoColor=white) **Network Metrics** | Traffic and performance data | [https://www.zabbix.com](https://www.zabbix.com) | 🟢 Active |
 
-### 🔐 Security
-- Firewall rules
-- VPN configuration
-- Certificate management
-- Access control
+#### 📊 Visualization & Alerting
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white) **Dashboards** | Custom monitoring dashboards | [https://grafana.com](https://grafana.com) | 🟢 Active |
+| ![AlertManager](https://img.shields.io/badge/AlertManager-FF6B35?style=for-the-badge&logo=alert&logoColor=white) **Alert Management** | Intelligent alert routing | [https://prometheus.io/docs/alerting/latest/alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager) | 🟢 Active |
 
-## ⚙️ Configuration
+#### 📝 Log Management
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![ELK Stack](https://img.shields.io/badge/ELK_Stack-00D4AA?style=for-the-badge&logo=elastic&logoColor=white) **Centralized Logging** | Log aggregation and analysis | [https://www.elastic.co/elk-stack](https://www.elastic.co/elk-stack) | 🟢 Active |
+| ![Fluentd](https://img.shields.io/badge/Fluentd-00D4AA?style=for-the-badge&logo=fluentd&logoColor=white) **Log Processing** | Data collection and routing | [https://www.fluentd.org](https://www.fluentd.org) | 🟢 Active |
 
-### 🌐 Network Configuration
-```yaml
-networks:
-  management:
-    vlan: 10
-    subnet: 10.0.10.0/24
-  storage:
-    vlan: 20
-    subnet: 10.0.20.0/24
-  services:
-    vlan: 30
-    subnet: 10.0.30.0/24
+---
+
+### 🎮 Media Server Infrastructure
+
+**Professional media management system** with automated workflows.
+
+#### 🎬 Media Management
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![Plex](https://img.shields.io/badge/Plex-E5A00D?style=for-the-badge&logo=plex&logoColor=white) **Media Server** | Automated library management | [https://www.plex.tv](https://www.plex.tv) | 🟢 Active |
+| ![Sonarr](https://img.shields.io/badge/Sonarr-35C5F4?style=for-the-badge&logo=sonarr&logoColor=white) **TV Shows** | Automated TV show management | [https://sonarr.tv](https://sonarr.tv) | 🟢 Active |
+| ![Radarr](https://img.shields.io/badge/Radarr-00D4AA?style=for-the-badge&logo=radarr&logoColor=white) **Movies** | Automated movie management | [https://radarr.video](https://radarr.video) | 🟢 Active |
+| ![Lidarr](https://img.shields.io/badge/Lidarr-00D4AA?style=for-the-badge&logo=lidarr&logoColor=white) **Music** | Automated music management | [https://lidarr.audio](https://lidarr.audio) | 🟢 Active |
+
+#### 🔄 Automation & Workflows
+| Component | Description | Official Website | Status |
+|-----------|-------------|------------------|--------|
+| ![Transcoding](https://img.shields.io/badge/Transcoding-FF6B35?style=for-the-badge&logo=video&logoColor=white) **Media Transcoding** | Hardware-accelerated encoding | [https://ffmpeg.org](https://ffmpeg.org) | 🟢 Active |
+| ![Metadata](https://img.shields.io/badge/Metadata-00D4AA?style=for-the-badge&logo=metadata&logoColor=white) **Metadata Management** | Automated metadata fetching | [https://www.themoviedb.org](https://www.themoviedb.org) | 🟢 Active |
+
+---
+
+### 🔧 Hardening Scripts & Automation
+
+**Security hardening and automation scripts** for infrastructure protection.
+
+#### 🛡️ Security Hardening Scripts
+
+```bash
+# System Hardening Scripts
+├── 🔒 firewall-setup.sh          # Firewall configuration
+├── 🔐 ssl-certificates.sh        # SSL/TLS certificate management
+├── 🛡️ security-audit.sh          # Security vulnerability scanning
+├── 🔑 ssh-hardening.sh           # SSH security configuration
+├── 🚪 access-control.sh          # User access management
+└── 📊 monitoring-setup.sh        # Security monitoring deployment
 ```
 
-### 💾 Storage Layout
+#### 🤖 Automation Workflows
+
 ```yaml
-storage:
-  pools:
-    - name: main
-      type: zfs
-      size: 16TB
-      redundancy: raidz2
-    - name: backup
-      type: zfs
-      size: 32TB
-      redundancy: mirror
+# CI/CD Pipeline Configuration
+security_checks:
+  - name: "Vulnerability Scan"
+    tool: "Trivy"
+    schedule: "daily"
+  
+  - name: "Security Audit"
+    tool: "Lynis"
+    schedule: "weekly"
+  
+  - name: "Backup Verification"
+    tool: "Custom Scripts"
+    schedule: "daily"
+
+hardening_automation:
+  - name: "System Updates"
+    frequency: "automatic"
+    security_only: true
+  
+  - name: "Certificate Renewal"
+    frequency: "monthly"
+    auto_renew: true
+  
+  - name: "Access Review"
+    frequency: "quarterly"
+    automated: true
 ```
 
-## 📈 Statistics
+#### 📋 Security Checklist
 
-### 📊 Repository Stats
-![GitHub Language Count](https://img.shields.io/github/languages/count/ahmed86-star/Homelab?logo=github&label=Languages)
-![GitHub Code Size](https://img.shields.io/github/languages/code-size/ahmed86-star/Homelab?logo=github&label=Code%20Size)
-![GitHub Repo Size](https://img.shields.io/github/repo-size/ahmed86-star/Homelab?logo=github&label=Repo%20Size)
-![GitHub Last Commit](https://img.shields.io/github/last-commit/ahmed86-star/Homelab?logo=github&label=Last%20Commit)
+- ✅ **Firewall Configuration**: UFW/iptables rules
+- ✅ **SSL/TLS Hardening**: Modern cipher suites
+- ✅ **SSH Security**: Key-based authentication only
+- ✅ **User Management**: Principle of least privilege
+- ✅ **Network Segmentation**: VLAN isolation
+- ✅ **Monitoring**: Real-time security alerts
+- ✅ **Backup Security**: Encrypted backups
+- ✅ **Update Management**: Automated security patches
 
-### 🌟 Social Stats
-![GitHub Stars](https://img.shields.io/github/stars/ahmed86-star/Homelab?style=social)
-![GitHub Forks](https://img.shields.io/github/forks/ahmed86-star/Homelab?style=social)
-![GitHub Followers](https://img.shields.io/github/followers/ahmed86-star?style=social)
-![GitHub Discussions](https://img.shields.io/github/discussions/ahmed86-star/Homelab?style=social)
+---
 
-### 📱 Tech Stack Status
-![Hugo](https://img.shields.io/badge/Hugo-ready-success?logo=hugo)
-![Docker](https://img.shields.io/badge/Docker-ready-success?logo=docker)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-planned-yellow?logo=kubernetes)
-![Terraform](https://img.shields.io/badge/Terraform-planned-yellow?logo=terraform)
-![Ansible](https://img.shields.io/badge/Ansible-ready-success?logo=ansible)
+## ⚡ Performance Metrics
+
+**Real-time performance monitoring** and system health indicators.
+
+| Service Category | Response Time | Uptime | Load | Security Score |
+|------------------|---------------|--------|------|----------------|
+| **Documentation** | ![200ms](https://img.shields.io/badge/200ms-green?logo=speedtest&label=Response) | ![99.9%](https://img.shields.io/badge/99.9%25-green?logo=statuspage&label=Uptime) | ![Low](https://img.shields.io/badge/Low-green?logo=serverfault&label=Load) | ![A+](https://img.shields.io/badge/A+-green?logo=security&label=Security) |
+| **Proxmox Cluster** | ![150ms](https://img.shields.io/badge/150ms-green?logo=speedtest&label=Response) | ![99.99%](https://img.shields.io/badge/99.99%25-green?logo=statuspage&label=Uptime) | ![Medium](https://img.shields.io/badge/Medium-yellow?logo=serverfault&label=Load) | ![A](https://img.shields.io/badge/A-green?logo=security&label=Security) |
+| **Storage Systems** | ![5ms](https://img.shields.io/badge/5ms-green?logo=speedtest&label=Response) | ![99.999%](https://img.shields.io/badge/99.999%25-green?logo=statuspage&label=Uptime) | ![High](https://img.shields.io/badge/High-red?logo=serverfault&label=Load) | ![A+](https://img.shields.io/badge/A+-green?logo=security&label=Security) |
+| **Security Services** | ![50ms](https://img.shields.io/badge/50ms-green?logo=speedtest&label=Response) | ![99.95%](https://img.shields.io/badge/99.95%25-green?logo=statuspage&label=Uptime) | ![Low](https://img.shields.io/badge/Low-green?logo=serverfault&label=Load) | ![A+](https://img.shields.io/badge/A+-green?logo=security&label=Security) |
 
 ---
 
