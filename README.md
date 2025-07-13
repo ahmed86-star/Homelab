@@ -1,5 +1,7 @@
 # 🏠 Homelab Infrastructure Documentation
 
+<div align="center">
+
 **🌐 Main Website:** [https://www.ahmed1.live/](https://www.ahmed1.live/)
 
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/ahmed86-star/Homelab/docs.yml?label=Docs%20Build&logo=github)](https://github.com/ahmed86-star/Homelab/actions)
@@ -9,8 +11,49 @@
 [![Last Commit](https://img.shields.io/github/last-commit/ahmed86-star/Homelab?logo=git&logoColor=white)](https://github.com/ahmed86-star/Homelab/commits/main)
 [![Open Issues](https://img.shields.io/github/issues/ahmed86-star/Homelab?logo=github&logoColor=white)](https://github.com/ahmed86-star/Homelab/issues)
 
-Welcome to my homelab journey! This repository documents my adventures in building and maintaining a home lab environment for learning, testing, and self-hosting various services.
-![photo-1558494949-ef010cbdcc31](https://github.com/user-attachments/assets/051afc2a-6f90-461a-9262-b7e57d2585a3)
+</div>
+
+---
+
+## 🚀 Welcome to My Homelab Journey!
+
+Welcome to my **enterprise-grade homelab infrastructure**! This repository showcases my journey in building and maintaining a professional home lab environment for learning, testing, and self-hosting various services.
+
+### 🎯 What You'll Find Here
+
+- **🏗️ Infrastructure Documentation**: Complete setup guides and configurations
+- **🔧 Self-Hosted Services**: 15+ production-ready applications
+- **📊 Monitoring & Analytics**: Real-time system insights and dashboards
+- **🔒 Security & Privacy**: Enterprise-grade security implementations
+- **📚 Learning Resources**: Guides, tutorials, and best practices
+
+### 🌟 Featured Technologies
+
+![Proxmox](https://img.shields.io/badge/Proxmox-E57000?style=for-the-badge&logo=proxmox&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
+![InfluxDB](https://img.shields.io/badge/InfluxDB-22ADF6?style=for-the-badge&logo=influxdb&logoColor=white)
+![Synology](https://img.shields.io/badge/Synology-00B2FF?style=for-the-badge&logo=synology&logoColor=white)
+
+### 🔗 Quick Links
+
+| Resource | Description | Link |
+|----------|-------------|------|
+| ![Website](https://img.shields.io/badge/Website-ahmed1.live-blue?style=flat&logo=globe&logoColor=white) | **Main Documentation Site** | [https://ahmed1.live](https://ahmed1.live) |
+| ![GitHub](https://img.shields.io/badge/GitHub-Profile-black?style=flat&logo=github&logoColor=white) | **GitHub Profile** | [https://github.com/ahmed86-star](https://github.com/ahmed86-star) |
+| ![Blog](https://img.shields.io/badge/Blog-Latest_Posts-orange?style=flat&logo=rss&logoColor=white) | **Blog & Updates** | [https://ahmed1.live/blog](https://ahmed1.live/blog) |
+
+---
+
+<div align="center">
+
+![Homelab Infrastructure](https://github.com/user-attachments/assets/051afc2a-6f90-461a-9262-b7e57d2585a3)
+
+*Enterprise-grade homelab infrastructure built with passion and precision*
+
+</div>
+
+---
 
 ## 📑 Table of Contents
 - [🌟 Infrastructure Overview](#-infrastructure-overview)
