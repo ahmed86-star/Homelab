@@ -6,15 +6,52 @@ services:
     container_name: grafana
     restart: unless-stopped
     environment:
-      - TZ=UTC
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    - TZ=UTC
+    - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    - GF_SECURITY_ADMIN_USER=admin
+    - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    - GF_PATHS_DATA=/var/lib/grafana
+    - GF_PATHS_LOGS=/var/log/grafana
+    - GF_PATHS_PLUGINS=/var/lib/grafana/plugins
+    - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     volumes:
-      - ./data:/var/lib/grafana
+    - ./data:/var/lib/grafana
+    - ./config:/etc/grafana
     ports:
-      - "3000:3000"
+    - "3000:3000"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.grafana.rule=Host(`grafana.local`)"
+    - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
 networks:
   homelab:
-    external: true 
+    external: true

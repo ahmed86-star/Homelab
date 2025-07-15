@@ -6,20 +6,54 @@ services:
     container_name: influxdb
     restart: unless-stopped
     environment:
-      - TZ=UTC
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USERNAME}
-      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
-      - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
-      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+    - TZ=UTC
+    - DOCKER_INFLUXDB_INIT_MODE=setup
+    - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USERNAME}
+    - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+    - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
+    - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
+    - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+    - INFLUXDB_HTTP_AUTH_ENABLED=true
+    - INFLUXDB_HTTP_LOG_ENABLED=true
+    - INFLUXDB_HTTP_WRITE_TIMEOUT=10s
+    - INFLUXDB_HTTP_READ_TIMEOUT=30s
     volumes:
-      - ./data:/var/lib/influxdb2
+    - ./data:/var/lib/influxdb2
     ports:
-      - "8086:8086"
+    - "8086:8086"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8086/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.influxdb.rule=Host(`influxdb.local`)"
+    - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
 
 networks:
   homelab:
-    external: true 
+    external: true

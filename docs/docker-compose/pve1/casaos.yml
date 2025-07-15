@@ -6,15 +6,48 @@ services:
     container_name: casaos
     restart: unless-stopped
     environment:
-      - TZ=UTC
+    - TZ=UTC
+    - PUID=1000
+    - PGID=1000
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/casaos:/var/lib/casaos
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - /var/lib/casaos:/var/lib/casaos
+    - ./config:/app/config
     ports:
-      - "80:80"
+    - "80:80"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:80/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.casaos.rule=Host(`casaos.local`)"
+    - "traefik.http.services.casaos.loadbalancer.server.port=80"
 
 networks:
   homelab:
-    external: true 
+    external: true

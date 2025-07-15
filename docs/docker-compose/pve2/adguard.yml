@@ -6,28 +6,62 @@ services:
     container_name: adguardhome
     restart: unless-stopped
     environment:
-      - TZ=UTC
+    - TZ=UTC
+    - PUID=1000
+    - PGID=1000
     volumes:
-      - ./work:/opt/adguardhome/work
-      - ./conf:/opt/adguardhome/conf
+    - ./work:/opt/adguardhome/work
+    - ./conf:/opt/adguardhome/conf
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "68:68/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
-      - "443:443/udp"
-      - "3000:3000/tcp"
-      - "853:853/tcp"
-      - "784:784/udp"
-      - "853:853/udp"
-      - "8853:8853/udp"
-      - "5443:5443/tcp"
-      - "5443:5443/udp"
+    - "53:53/tcp"
+    - "53:53/udp"
+    - "67:67/udp"
+    - "68:68/udp"
+    - "80:80/tcp"
+    - "443:443/tcp"
+    - "443:443/udp"
+    - "3000:3000/tcp"
+    - "853:853/tcp"
+    - "784:784/udp"
+    - "853:853/udp"
+    - "8853:8853/udp"
+    - "5443:5443/tcp"
+    - "5443:5443/udp"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/control/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.adguard.rule=Host(`adguard.local`)"
+    - "traefik.http.services.adguard.loadbalancer.server.port=3000"
 
 networks:
   homelab:
-    external: true 
+    external: true

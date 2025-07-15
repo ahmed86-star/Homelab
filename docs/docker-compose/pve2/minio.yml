@@ -6,18 +6,57 @@ services:
     container_name: minio
     restart: unless-stopped
     environment:
-      - TZ=UTC
-      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
-      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    - TZ=UTC
+    - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+    - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    - MINIO_BROWSER_REDIRECT_URL=https://minio.local
+    - MINIO_SERVER_URL=https://minio.local
+    - MINIO_PROMETHEUS_AUTH_TYPE=public
+    - MINIO_CACHE_DRIVES="/data"
+    - MINIO_CACHE_EXCLUDE="bucket1/*,*.tmp"
+    - MINIO_CACHE_QUOTA=80
+    - MINIO_CACHE_AFTER=0
+    - MINIO_CACHE_WATERMARK_LOW=70
+    - MINIO_CACHE_WATERMARK_HIGH=80
     volumes:
-      - ./data:/data
+    - ./data:/data
     ports:
-      - "9000:9000"
-      - "9001:9001"
+    - "9000:9000"
+    - "9001:9001"
     command: server /data --console-address ":9001"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.minio.rule=Host(`minio.local`)"
+    - "traefik.http.services.minio.loadbalancer.server.port=9000"
 
 networks:
   homelab:
-    external: true 
+    external: true

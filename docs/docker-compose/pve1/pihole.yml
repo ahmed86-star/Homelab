@@ -6,19 +6,57 @@ services:
     container_name: pihole
     restart: unless-stopped
     environment:
-      - TZ=UTC
-      - WEBPASSWORD=${PIHOLE_PASSWORD}
-      - VIRTUAL_HOST=pihole.local
+    - TZ=UTC
+    - WEBPASSWORD=${PIHOLE_PASSWORD}
+    - VIRTUAL_HOST=pihole.local
+    - PIHOLE_DNS_1=1.1.1.1
+    - PIHOLE_DNS_2=1.0.0.1
+    - PIHOLE_DNS_3=8.8.8.8
+    - PIHOLE_DNS_4=8.8.4.4
+    - DNSMASQ_USER=pihole
+    - DNSMASQ_LISTENING=single
     volumes:
-      - ./etc-pihole:/etc/pihole
-      - ./etc-dnsmasq.d:/etc/dnsmasq.d
+    - ./etc-pihole:/etc/pihole
+    - ./etc-dnsmasq.d:/etc/dnsmasq.d
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "80:80"
+    - "53:53/tcp"
+    - "53:53/udp"
+    - "80:80"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    cap_add:
+    - NET_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:80/admin/api.php?status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.pihole.rule=Host(`pihole.local`)"
+    - "traefik.http.services.pihole.loadbalancer.server.port=80"
 
 networks:
   homelab:
-    external: true 
+    external: true

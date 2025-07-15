@@ -6,14 +6,47 @@ services:
     container_name: byte-stash
     restart: unless-stopped
     environment:
-      - TZ=UTC
+    - TZ=UTC
+    - PUID=1000
+    - PGID=1000
     volumes:
-      - ./data:/data
+    - ./data:/data
+    - ./config:/config
     ports:
-      - "8080:8080"
+    - "8080:8080"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.byte-stash.rule=Host(`byte-stash.local`)"
+    - "traefik.http.services.byte-stash.loadbalancer.server.port=8080"
 
 networks:
   homelab:
-    external: true 
+    external: true

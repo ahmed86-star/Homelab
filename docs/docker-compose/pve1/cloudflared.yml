@@ -7,10 +7,41 @@ services:
     restart: unless-stopped
     command: tunnel run
     environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    - TUNNEL_METRICS=0.0.0.0:2000
+    - TUNNEL_PROTOCOL=http2
+    - TUNNEL_ORIGIN_REQUEST_TIMEOUT=30s
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 256M
+    healthcheck:
+      test: [ "CMD", "cloudflared", "tunnel", "info" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=false"
 
 networks:
   homelab:
-    external: true 
+    external: true

@@ -6,15 +6,47 @@ services:
     container_name: openwebui
     restart: unless-stopped
     environment:
-      - TZ=UTC
-      - OLLAMA_API_BASE_URL=http://ollama:11434/api
+    - TZ=UTC
+    - OLLAMA_API_BASE_URL=http://ollama:11434/api
+    - PUID=1000
+    - PGID=1000
     volumes:
-      - ./data:/app/backend/data
+    - ./data:/app/backend/data
     ports:
-      - "3000:8080"
+    - "3000:8080"
     networks:
-      - homelab
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.openwebui.rule=Host(`openwebui.local`)"
+    - "traefik.http.services.openwebui.loadbalancer.server.port=8080"
 
 networks:
   homelab:
-    external: true 
+    external: true
