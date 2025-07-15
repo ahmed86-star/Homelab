@@ -7,6 +7,9 @@
 ### Rack Equipment
 **VEVOR 6U Wall Mount Network Cabinet**
 
+![VEVOR Logo](https://img.shields.io/badge/VEVOR-Network%20Cabinet-blue?logo=server&style=for-the-badge)
+**Official Website**: [VEVOR Network Cabinets](https://www.vevor.com/network-cabinets-c_10001)
+
 #### 📊 Specifications
 - Height: 6U
 - Depth: 15.5 inches

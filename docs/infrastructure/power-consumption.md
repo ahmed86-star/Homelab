@@ -1,17 +1,19 @@
+# ⚡ Homelab Power Consumption Documentation
+
 ## 📊 Current Power Usage
 
 ### 🖥️ Core Equipment
 
-| Device | Idle Power | Load Power | Daily Avg |
-|--------|------------|------------|-----------|
-| Router (TP-Link AX20) | 10W | 15W | 12W |
-| Switch (Netgear GS108Ev4) | 5W | 8W | 6W |
-| Proxmox Host 1 | 65W | 120W | 80W |
-| Proxmox Host 2 (planned) | 65W | 120W | 80W |
-| Synology DS918+ | 30W | 60W | 40W |
-| HP Compaq 8200 Elite | 50W | 100W | 65W |
-| Rack Fans (planned) | 10W | 20W | 15W |
-| LED Strips (planned) | 5W | 10W | 7W |
+| Device | Idle Power | Load Power | Daily Avg | Logo & Links |
+|--------|------------|------------|-----------|--------------|
+| Router (TP-Link AX20) | 10W | 15W | 12W | ![TP-Link](https://img.shields.io/badge/TP--Link-AX20-blue?logo=tp-link&style=flat-square) [Website](https://www.tp-link.com/us/home-networking/wifi-router/archer-ax20/) |
+| Switch (Netgear GS108Ev4) | 5W | 8W | 6W | ![Netgear](https://img.shields.io/badge/Netgear-GS108Ev4-blue?logo=netgear&style=flat-square) [Website](https://www.netgear.com/business/products/switches/smart-switches/gs108ev4.aspx) |
+| Proxmox Host 1 | 65W | 120W | 80W | ![Dell](https://img.shields.io/badge/Dell-OptiPlex%207040-blue?logo=dell&style=flat-square) [Website](https://www.dell.com/support/home/en-us/product-support/product/optiplex-7040-desktop) |
+| Proxmox Host 2 (planned) | 65W | 120W | 80W | ![Dell](https://img.shields.io/badge/Dell-OptiPlex%207040-blue?logo=dell&style=flat-square) [Website](https://www.dell.com/support/home/en-us/product-support/product/optiplex-7040-desktop) |
+| Synology DS918+ | 30W | 60W | 40W | ![Synology](https://img.shields.io/badge/Synology-DS918+-blue?logo=synology&style=flat-square) [Website](https://www.synology.com/en-us/products/DS918+) |
+| HP Compaq 8200 Elite | 50W | 100W | 65W | ![HP](https://img.shields.io/badge/HP-Compaq%208200-red?logo=hp&style=flat-square) [Website](https://support.hp.com/us-en/product/hp-compaq-8200-elite-small-form-factor-pc/5080747) |
+| Rack Fans (planned) | 10W | 20W | 15W | ![Fans](https://img.shields.io/badge/Rack-Fans-gray?logo=fan&style=flat-square) |
+| LED Strips (planned) | 5W | 10W | 7W | ![LED](https://img.shields.io/badge/LED-Strips-yellow?logo=lightbulb&style=flat-square) |
 
 ### 📈 Total Power Consumption
 

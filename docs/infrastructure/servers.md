@@ -10,6 +10,12 @@ This document details the server infrastructure of our homelab, including specif
 ### 🖥️ Proxmox Host 1 (Primary)
 **Dell OptiPlex 7040 SFF**
 
+![Dell Logo](https://img.shields.io/badge/Dell-OptiPlex%207040-blue?logo=dell&style=for-the-badge)
+**Official Website**: [Dell OptiPlex 7040](https://www.dell.com/support/home/en-us/product-support/product/optiplex-7040-desktop)
+
+![Proxmox Logo](https://img.shields.io/badge/Proxmox-VE%207.x-orange?logo=proxmox&style=for-the-badge)
+**Official Website**: [Proxmox VE](https://www.proxmox.com/en/proxmox-ve)
+
 #### 💻 Hardware Specifications
 - **CPU**: Intel i5-6500 (4C/4T, 3.2GHz base, 3.6GHz boost)
 - **RAM**: 32GB DDR4
@@ -50,6 +56,10 @@ This document details the server infrastructure of our homelab, including specif
 
 ### 💾 NAS System
 **Synology DS918+**
+
+![Synology Logo](https://img.shields.io/badge/Synology-DS918+-blue?logo=synology&style=for-the-badge)
+**Official Website**: [Synology DS918+](https://www.synology.com/en-us/products/DS918+)
+
 - 4-bay configuration
 - Intel Celeron J3455
 - 4GB RAM (expandable)
@@ -68,6 +78,10 @@ This document details the server infrastructure of our homelab, including specif
 
 ### 🏛️ Legacy System
 **HP Compaq 8200 Elite SFF**
+
+![HP Logo](https://img.shields.io/badge/HP-Compaq%208200%20Elite-red?logo=hp&style=for-the-badge)
+**Official Website**: [HP Compaq 8200 Elite](https://support.hp.com/us-en/product/hp-compaq-8200-elite-small-form-factor-pc/5080747)
+
 - Testing environment
 - Development platform
 - Backup hardware
