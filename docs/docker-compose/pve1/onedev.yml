@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  onedev:
+    image: 1dev/onedev:latest
+    container_name: onedev
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - ./data:/opt/onedev/data
+    - ./opt/onedev/conf:/opt/onedev/conf
+    - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+    - "6610:6610"
+    networks:
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:6610/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.onedev.rule=Host(`onedev.local`)"
+    - "traefik.http.services.onedev.loadbalancer.server.port=6610"
+
+networks:
+  homelab:
+    external: true

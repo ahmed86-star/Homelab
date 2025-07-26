@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  diffy:
+    image: diffy/diffy:latest
+    container_name: diffy
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - ./data:/app/data
+    - ./config:/app/config
+    ports:
+    - "8880:8880"
+    networks:
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8880/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.diffy.rule=Host(`diffy.local`)"
+    - "traefik.http.services.diffy.loadbalancer.server.port=8880"
+
+networks:
+  homelab:
+    external: true
