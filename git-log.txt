@@ -1,0 +1,10 @@
+452e575 Add Docker Compose files for Prometheus, Adminer, Diffy, and OneDev services
+33086a9 feat: Add logos and official website links to infrastructure documentation
+4f547d6 feat: Update docker-compose files with security best practices and modern configurations
+ba3a692 docs: enhance documentation with professional template structure and comprehensive content - Update CI/CD pipeline documentation with detailed workflows and security configs - Enhance monitoring infrastructure guide with Prometheus, Grafana, and Loki setup - Improve development environment documentation with tools and best practices - Update deployment guide with Infrastructure as Code and security hardening - Add comprehensive external resources integration guide - Enhance post-installation configuration with security and optimization - Update prerequisites with detailed hardware and software requirements - Improve archetype template with professional metadata structure
+ec8fa38 Merge remote changes with Synology documentation
+f4253ee 🖥️ Add comprehensive Synology NAS documentation: Complete setup guide, Docker Compose files for monitoring/security/file management, configuration files for Pi-hole/Prometheus, and automated setup script with backup/monitoring capabilities
+d5d24d4 Delete docs/synology
+5218a70 Create synology
+875ded2 🚀 Enhanced Featured Projects: Added comprehensive security infrastructure, monitoring stack, media server setup, hardening scripts, automation workflows, and performance metrics with official websites and professional badges
+b6f4d15 🎨 Enhanced README header: Added professional introduction, featured technologies, quick links table, and improved visual layout with centered design and technology badges
