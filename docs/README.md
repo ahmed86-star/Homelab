@@ -2,94 +2,217 @@
 
 This repository contains comprehensive documentation for a production-grade homelab infrastructure, services, and configurations. Built with scalability, security, and maintainability in mind.
 
-## 📁 Directory Structure
+## 🏷️ Color-Coded Documentation Tags
+
+### 🔴 **Critical Infrastructure** (Red)
+- **🏗️ Core Systems**: Server hardware, networking, power management
+- **🛡️ Security**: Firewalls, access control, encryption
+- **💾 Storage**: NAS, RAID, backup systems
+- **⚡ Power**: UPS, power monitoring, redundancy
+
+### 🟠 **High Priority Services** (Orange)
+- **🚀 Production Apps**: Plex, monitoring, web services
+- **📊 Monitoring**: Prometheus, Grafana, alerting
+- **🔍 Logging**: Centralized logging, log analysis
+- **🔄 Automation**: CI/CD, backup automation
+
+### 🟡 **Medium Priority** (Yellow)
+- **🌐 Web Services**: Reverse proxy, SSL certificates
+- **🐳 Containers**: Docker Compose, orchestration
+- **📱 Applications**: Media servers, file management
+- **🛠️ Development**: Development tools, testing
+
+### 🟢 **Standard Services** (Green)
+- **📚 Documentation**: Guides, tutorials, references
+- **🔧 Configuration**: Templates, examples, best practices
+- **📋 Scripts**: Automation scripts, utilities
+- **🎯 Maintenance**: Regular tasks, cleanup procedures
+
+### 🔵 **Information & Reference** (Blue)
+- **📖 Guides**: How-to guides, tutorials
+- **📋 References**: API docs, configuration references
+- **📊 Reports**: Performance reports, metrics
+- **📝 Notes**: Implementation notes, troubleshooting
+
+### 🟣 **Advanced Topics** (Purple)
+- **🔬 Advanced Config**: Complex setups, optimizations
+- **⚙️ Custom Solutions**: Custom implementations
+- **🔧 Troubleshooting**: Debug guides, problem solving
+- **📈 Performance**: Tuning, optimization, scaling
+
+## 📁 Directory Structure with Tags
 
 ```
 docs/
-├── docker-compose/     # 🐳 Container Orchestration
-├── infrastructure/     # 🏗️  Core Infrastructure
-├── services/          # 🚀 Application Services
-├── monitoring/        # 📊 Observability Stack
-└── web/              # 🌐 Web Infrastructure
+├── 🔴 infrastructure/     # 🏗️ Core Infrastructure & Security
+│   ├── 🔴 servers.md      # Server hardware & configurations
+│   ├── 🔴 networking.md   # Network architecture & security
+│   ├── 🔴 power-consumption.md # Power management & UPS
+│   └── 🔴 infrastructure.md # Overall infrastructure overview
+│
+├── 🟠 services/          # 🚀 Production Services
+│   ├── 🟠 plex-media-server.yml # Media streaming service
+│   ├── 🟠 README.md      # Service documentation
+│   └── 🟠 [other services] # Additional service configs
+│
+├── 🟠 monitoring/        # 📊 Observability & Alerting
+│   ├── 🟠 Influxdb.md    # Time-series database
+│   ├── 🟠 README.md      # Monitoring overview
+│   └── 🟠 [monitoring tools] # Grafana, Prometheus, etc.
+│
+├── 🟡 docker-compose/    # 🐳 Container Orchestration
+│   ├── 🟡 pve1/         # Proxmox VE 1 configurations
+│   ├── 🟡 pve2/         # Proxmox VE 2 configurations
+│   ├── 🟡 QUICK_START.md # Quick setup guide
+│   └── 🟡 README.md     # Docker Compose overview
+│
+├── 🟡 web/              # 🌐 Web Infrastructure
+│   ├── 🟡 config.yaml   # Web service configuration
+│   ├── 🟡 nginx.conf    # Reverse proxy setup
+│   ├── 🟡 Dockerfile    # Container configuration
+│   └── 🟡 README.md     # Web infrastructure docs
+│
+├── 🟢 synology/         # 📚 Synology NAS Documentation
+│   ├── 🟢 docker-compose/ # Container configurations
+│   ├── 🟢 configs/      # Configuration files
+│   ├── 🟢 scripts/      # Automation scripts
+│   └── 🟢 README.md     # Synology setup guide
+│
+├── 🔵 content/          # 📖 Documentation Content
+│   ├── 🔵 overview/     # System overview
+│   ├── 🔵 installation/ # Setup guides
+│   ├── 🔵 development/  # Development documentation
+│   └── 🔵 _index.md    # Main content index
+│
+├── 🔵 archetypes/       # 📋 Documentation Templates
+│   └── 🔵 default.md    # Default page template
+│
+├── 🔵 assets/          # 🎨 Documentation Assets
+│   ├── 🔵 css/         # Custom stylesheets
+│   ├── 🔵 js/          # Custom JavaScript
+│   └── 🔵 [other assets] # Images, fonts, etc.
+│
+└── 🔵 static/          # 📄 Static Files
+    └── 🔵 CNAME        # Custom domain configuration
 ```
 
-## 🔗 Quick Links
+## 🚀 Quick Navigation by Priority
 
-- [🏗️ Infrastructure Documentation](infrastructure/README.md)
-- [🚀 Services Documentation](services/README.md)
-- [📊 Monitoring Documentation](monitoring/README.md)
-- [🌐 Web Infrastructure](web/README.md)
-- [🐳 Docker Compose Files](docker-compose/README.md)
+### 🔴 **Critical Systems** (Must-Have)
+- [🏗️ Infrastructure Overview](infrastructure/infrastructure.md)
+- [🛡️ Security Configuration](infrastructure/networking.md)
+- [💾 Storage Management](infrastructure/storage/)
+- [⚡ Power Management](infrastructure/power-consumption.md)
 
-## 📚 Documentation Overview
+### 🟠 **Production Services** (High Priority)
+- [🎬 Plex Media Server](services/plex-media-server.yml)
+- [📊 Monitoring Stack](monitoring/README.md)
+- [🔍 Logging & Analytics](monitoring/Influxdb.md)
+- [🔄 Backup Systems](services/README.md)
 
-This documentation is organized into several key areas, following industry best practices and enterprise-grade architecture patterns:
+### 🟡 **Core Infrastructure** (Medium Priority)
+- [🐳 Docker Compose](docker-compose/README.md)
+- [🌐 Web Services](web/README.md)
+- [📱 Application Stack](docker-compose/pve1/)
+- [🛠️ Development Tools](docker-compose/pve2/)
 
-1. **🏗️ Infrastructure**
-   - High-availability server configurations
-   - Redundant network architecture
-   - Power management and UPS integration
-   - Enterprise-grade hardware specifications
-   - Disaster recovery procedures
+### 🟢 **Supporting Services** (Standard)
+- [📚 Documentation](content/_index.md)
+- [🔧 Configuration Templates](archetypes/default.md)
+- [📋 Automation Scripts](synology/scripts/)
+- [🎯 Maintenance Procedures](synology/README.md)
 
-2. **🚀 Services**
-   - Microservices architecture
-   - Containerized applications
-   - Automated backup solutions
-   - Service mesh configurations
-   - Load balancing and failover
+## 🎯 Priority Matrix
 
-3. **📊 Monitoring**
-   - Distributed tracing
-   - Real-time metrics collection
-   - Automated alerting
-   - Custom dashboard templates
-   - Log aggregation and analysis
+| Priority | Color | Description | Response Time | Examples |
+|----------|-------|-------------|---------------|----------|
+| 🔴 Critical | Red | Core infrastructure, security | Immediate | Servers, networking, power |
+| 🟠 High | Orange | Production services | 1-4 hours | Plex, monitoring, backups |
+| 🟡 Medium | Yellow | Core infrastructure | 4-24 hours | Web services, containers |
+| 🟢 Standard | Green | Supporting services | 1-7 days | Documentation, scripts |
+| 🔵 Info | Blue | Reference materials | As needed | Guides, tutorials |
+| 🟣 Advanced | Purple | Complex configurations | As scheduled | Custom solutions, tuning |
 
-4. **🌐 Web Infrastructure**
-   - Reverse proxy configuration
-   - SSL/TLS management
-   - CDN integration
-   - Container orchestration
-   - Zero-downtime deployments
+## 🔄 Maintenance Schedule
 
-5. **🐳 Docker Compose**
-   - Multi-container applications
-   - Environment variable management
-   - Persistent storage solutions
-   - Network security policies
-   - Resource constraints
+### 🔴 **Daily Checks**
+- Server health and performance
+- Security monitoring and alerts
+- Backup verification
+- Network connectivity
 
-## 🤝 Contributing
+### 🟠 **Weekly Tasks**
+- Service updates and patches
+- Performance monitoring review
+- Log analysis and cleanup
+- Configuration backups
 
-When contributing to this documentation:
+### 🟡 **Monthly Reviews**
+- Documentation updates
+- Security audits
+- Performance optimization
+- Capacity planning
 
-1. 📝 Follow the established documentation style guide
-2. 🔍 Include comprehensive examples and use cases
-3. 🛠️ Provide configuration templates where applicable
-4. 🔒 Include security considerations
-5. 📈 Add performance benchmarks when relevant
+### 🟢 **Quarterly Assessments**
+- Infrastructure upgrades
+- Technology stack evaluation
+- Disaster recovery testing
+- Compliance reviews
 
-## 🔄 Maintenance
+## 🛡️ Security Classification
 
-- 📅 Monthly documentation reviews
-- 🔄 Automated version control
-- 📊 Change tracking and audit logs
-- 💾 Automated backup verification
-- 🔍 Regular security audits
+### 🔴 **Sensitive Information**
+- API keys and tokens
+- Database credentials
+- Network configurations
+- Security policies
 
-## 🛡️ Security
+### 🟠 **Internal Systems**
+- Service configurations
+- Monitoring dashboards
+- Backup procedures
+- Automation scripts
 
-- 🔒 All sensitive data is encrypted
-- 🔐 Access control policies
-- 🚨 Security incident response
-- 📋 Compliance documentation
-- 🔍 Regular vulnerability scanning
+### 🟡 **Public Documentation**
+- Setup guides
+- Configuration templates
+- Best practices
+- Troubleshooting guides
 
-## 📈 Performance
+## 📈 Performance Metrics
 
-- ⚡ Optimized configurations
-- 📊 Performance benchmarks
-- 🔄 Load testing results
-- 📈 Scalability metrics
-- 🎯 Resource utilization targets 
+### 🔴 **Critical Metrics**
+- Server uptime: 99.9%+
+- Response time: <100ms
+- Backup success rate: 100%
+- Security incident rate: 0%
+
+### 🟠 **Key Performance Indicators**
+- Service availability: 99.5%+
+- Resource utilization: <80%
+- Error rate: <0.1%
+- Recovery time: <15 minutes
+
+## 🤝 Contributing Guidelines
+
+### 🔴 **Critical Changes**
+- Require security review
+- Need performance testing
+- Must have rollback plan
+- Require documentation updates
+
+### 🟠 **High Priority Changes**
+- Need testing in staging
+- Require configuration review
+- Should have monitoring alerts
+- Need backup verification
+
+### 🟡 **Standard Changes**
+- Follow change management process
+- Update documentation
+- Test in development environment
+- Monitor for issues
+
+---
+
+**📝 Note**: This color-coded system helps prioritize maintenance, troubleshooting, and development efforts. Always address 🔴 critical items first, then work through the priority levels systematically. 

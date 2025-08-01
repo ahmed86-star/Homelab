@@ -1,84 +1,138 @@
-# 🏗️ Infrastructure Documentation
+# 🔴 Infrastructure Documentation
 
-This directory contains comprehensive documentation for the enterprise-grade homelab infrastructure components, designed for high availability and scalability.
+**Priority Level**: 🔴 **Critical**  
+**Response Time**: Immediate  
+**Category**: Core Systems & Security
 
-## 📚 Contents
+## 🏗️ Core Infrastructure Components
 
-- `infrastructure.md` - Core infrastructure architecture and design patterns
-- `networking.md` - Advanced network topology and security policies
-- `servers.md` - Enterprise server specifications and HA configurations
-- `power-consumption.md` - Power management and efficiency optimization
+### 🔴 **Critical Systems** (Must-Have)
+- **Server Hardware**: Enterprise-grade server configurations
+- **Network Architecture**: Redundant network design
+- **Power Management**: UPS systems and power monitoring
+- **Security Infrastructure**: Firewalls, access control, encryption
 
-## 🎯 Overview
+### 🟠 **High Priority Systems**
+- **Storage Solutions**: NAS, RAID configurations, backup systems
+- **Virtualization**: Proxmox VE setup and management
+- **Network Security**: VLANs, firewall rules, intrusion detection
+- **Monitoring Infrastructure**: Hardware monitoring and alerting
 
-The infrastructure documentation covers enterprise-grade implementations of:
+## 📁 Directory Structure
 
-- 🖥️ **Physical Infrastructure**
-  - High-availability server clusters
-  - Redundant storage systems
-  - Enterprise-grade networking equipment
-  - UPS and power management
+```
+infrastructure/
+├── 🔴 infrastructure.md      # Overall infrastructure overview
+├── 🔴 servers.md            # Server hardware & configurations
+├── 🔴 networking.md         # Network architecture & security
+├── 🔴 power-consumption.md  # Power management & UPS
+└── 🔴 README.md            # This file
+```
 
-- 🌐 **Network Architecture**
-  - Software-defined networking
-  - VLAN segmentation
-  - Firewall policies
-  - Load balancing
-  - VPN configurations
+## 🚨 Critical Alerts
 
-- ⚡ **Power Management**
-  - UPS integration
-  - Power redundancy
-  - Energy efficiency
-  - Cost optimization
-  - Environmental monitoring
+### 🔴 **Immediate Response Required**
+- Server hardware failures
+- Network connectivity issues
+- Power system problems
+- Security breaches
+- Storage system failures
 
-- 📊 **Performance Metrics**
-  - Resource utilization
-  - Capacity planning
-  - Performance benchmarks
-  - Scalability metrics
-  - Cost analysis
+### 🟠 **High Priority Issues**
+- Performance degradation
+- Backup failures
+- Monitoring system outages
+- Configuration errors
+- Resource exhaustion
 
-## 🏢 Core Technologies
+## 🛡️ Security Classification
 
-### Virtualization Platform
-![Proxmox VE](https://img.shields.io/badge/Proxmox-VE%207.x-orange?logo=proxmox&style=for-the-badge)
-**Official Website**: [Proxmox VE](https://www.proxmox.com/en/proxmox-ve)
+### 🔴 **Sensitive Information**
+- Network configurations
+- Security policies
+- Access credentials
+- Hardware specifications
+- Power management settings
 
-### Storage Solutions
-![Synology DSM](https://img.shields.io/badge/Synology-DSM-blue?logo=synology&style=for-the-badge)
-**Official Website**: [Synology DSM](https://www.synology.com/en-us/dsm)
+### 🟠 **Internal Systems**
+- Server configurations
+- Monitoring dashboards
+- Backup procedures
+- Maintenance schedules
 
-### Network Equipment
-![TP-Link](https://img.shields.io/badge/TP--Link-Archer%20AX20-blue?logo=tp-link&style=for-the-badge)
-**Official Website**: [TP-Link](https://www.tp-link.com/)
+## 📊 Performance Metrics
 
-![Netgear](https://img.shields.io/badge/Netgear-GS108Ev4-blue?logo=netgear&style=for-the-badge)
-**Official Website**: [Netgear](https://www.netgear.com/)
+### 🔴 **Critical KPIs**
+- **Uptime**: 99.9%+ target
+- **Response Time**: <100ms for critical services
+- **Security Incidents**: 0% tolerance
+- **Backup Success Rate**: 100% required
 
-### Hardware Vendors
-![Dell](https://img.shields.io/badge/Dell-OptiPlex-blue?logo=dell&style=for-the-badge)
-**Official Website**: [Dell](https://www.dell.com/)
+### 🟠 **Key Performance Indicators**
+- **Resource Utilization**: <80% target
+- **Network Latency**: <50ms internal
+- **Storage Performance**: IOPS targets met
+- **Power Efficiency**: Optimized consumption
 
-![HP](https://img.shields.io/badge/HP-Compaq-red?logo=hp&style=for-the-badge)
-**Official Website**: [HP](https://www.hp.com/)
+## 🔄 Maintenance Schedule
 
-![Synology](https://img.shields.io/badge/Synology-NAS-blue?logo=synology&style=for-the-badge)
-**Official Website**: [Synology](https://www.synology.com/)
+### 🔴 **Daily Checks**
+- Server health monitoring
+- Network connectivity verification
+- Security alert review
+- Backup status confirmation
+- Power system health
 
-## 🔒 Security Considerations
+### 🟠 **Weekly Tasks**
+- Performance analysis
+- Security audit review
+- Configuration backups
+- Resource utilization review
+- Maintenance planning
 
-- Network segmentation
-- Access control policies
-- Encryption standards
-- Security monitoring
-- Compliance requirements
+### 🟡 **Monthly Reviews**
+- Hardware health assessment
+- Security policy updates
+- Performance optimization
+- Capacity planning
+- Disaster recovery testing
 
-## 🚀 Best Practices
+## 🚀 Quick Actions
 
-- High availability design
-- Disaster recovery planning
-- Automated failover
-- Resource optimization
-- Performance tuning 
+### 🔴 **Emergency Procedures**
+1. **Server Failure**: Immediate failover to backup
+2. **Network Outage**: Activate redundant connections
+3. **Power Issues**: Switch to UPS, verify generator
+4. **Security Breach**: Isolate affected systems
+
+### 🟠 **Standard Procedures**
+1. **Performance Issues**: Analyze metrics, optimize
+2. **Configuration Changes**: Test in staging first
+3. **Updates**: Schedule during maintenance windows
+4. **Backups**: Verify integrity and test restore
+
+## 📋 Documentation Standards
+
+### 🔴 **Critical Documentation**
+- Must be up-to-date
+- Include emergency procedures
+- Have contact information
+- Include rollback procedures
+- Require regular review
+
+### 🟠 **Standard Documentation**
+- Follow established templates
+- Include configuration examples
+- Provide troubleshooting guides
+- Update with changes
+
+## 🔗 Related Documentation
+
+- [🟠 Services Documentation](../services/README.md)
+- [🟠 Monitoring Documentation](../monitoring/README.md)
+- [🟡 Docker Compose](../docker-compose/README.md)
+- [🟡 Web Infrastructure](../web/README.md)
+
+---
+
+**⚠️ Important**: This infrastructure documentation contains critical system information. Always follow security protocols and maintain proper access controls. 
