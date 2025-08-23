@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  swizzin:
+    image: swizzin/swizzin:latest
+    container_name: swizzin
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - PUID=1000
+    - PGID=1000
+    - WEBPASSWORD=${SWIZZIN_PASSWORD}
+    - VIRTUAL_HOST=swizzin.local
+    volumes:
+    - ./config:/config
+    - ./data:/data
+    - ./downloads:/downloads
+    - ./media:/media
+    ports:
+    - "8080:8080"  # Web dashboard
+    - "8989:8989"  # Sonarr
+    - "7878:7878"  # Radarr
+    - "9117:9117"  # Jackett
+    - "32400:32400" # Plex
+    - "5000:5000"  # rTorrent/ruTorrent
+    networks:
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.swizzin.rule=Host(`swizzin.local`)"
+    - "traefik.http.services.swizzin.loadbalancer.server.port=8080"
+    - "description=Light-weight, modular seedbox solution for torrenting and media management"
+
+networks:
+  homelab:
+    external: true

@@ -113,6 +113,7 @@ docker-compose/
 │   ├── homarr.yml          # Service dashboard
 │   ├── openwebui.yml       # Ollama web interface
 │   ├── pihole.yml          # DNS sinkhole
+│   ├── swizzin.yml         # Seedbox solution for torrenting and media management
 │   └── trillium.yml        # Note-taking app
 └── pve2/                    # Secondary Proxmox node services
     ├── adguard.yml         # DNS ad-blocker
@@ -216,6 +217,15 @@ PIHOLE_DNS_3=8.8.8.8
 PIHOLE_DNS_4=8.8.4.4
 WEBPASSWORD=your_web_password
 TZ=UTC
+EOF
+
+cat > pve1/swizzin/.env << EOF
+SWIZZIN_PASSWORD=your_swizzin_web_password
+TZ=UTC
+PUID=1000
+PGID=1000
+WEBPASSWORD=your_swizzin_admin_password
+VIRTUAL_HOST=swizzin.local
 EOF
 
 # PVE2 Services
@@ -375,6 +385,23 @@ services:
   - `./etc-pihole`
   - `./etc-dnsmasq.d`
 - **Use Case**: Network-wide ad blocking
+
+#### Swizzin
+- **Purpose**: Seedbox solution for torrenting and media management
+- **Ports**: 
+  - 8080 (Web dashboard)
+  - 8989 (Sonarr)
+  - 7878 (Radarr)
+  - 9117 (Jackett)
+  - 32400 (Plex)
+  - 5000 (rTorrent/ruTorrent)
+- **Volumes**: 
+  - `./config`
+  - `./data`
+  - `./downloads`
+  - `./media`
+- **Description**: Light-weight, modular, and user-friendly seedbox solution for Debian-based servers. Allows easy installation and management of applications like rTorrent, Sonarr, Radarr, and Plex, all accessible through command-line utility or web-based dashboard.
+- **Use Case**: Automated media acquisition and management
 
 #### Trillium
 - **Purpose**: Note-taking
