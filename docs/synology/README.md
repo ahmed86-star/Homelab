@@ -188,3 +188,111 @@ synology/
 - Regular security updates and vulnerability scans
 - Access control with principle of least privilege
 - Encrypted volumes for sensitive data storage 
+
+---
+
+## ☁️ Cloudflare Zero Trust & Tunnels
+
+Expose Synology services securely to the Internet without opening inbound ports or relying on your ISP router. Cloudflare Tunnel (cloudflared) creates an outbound-only, encrypted tunnel from your NAS to Cloudflare’s edge.
+
+### ✅ Why use Cloudflare Tunnel
+- **Zero inbound ports**: No port-forwarding or UPnP required
+- **Global TLS**: Automatic HTTPS certificates at the edge
+- **DDoS/WAF**: Traffic is filtered by Cloudflare before it reaches you
+- **Identity-aware access**: Protect apps with Cloudflare Access (SSO, OTP)
+
+### 🧰 Prerequisites
+- Cloudflare account and a zone (domain) added to Cloudflare DNS
+- Optional: Cloudflare Zero Trust (for Access policies)
+- Docker running on Synology
+
+### 🚀 Option A: Quick start with Tunnel Token (recommended)
+Use a single token from the Cloudflare Dashboard → Zero Trust → Networks → Tunnels → Create → Docker.
+
+1) Put the token in `.env` (or your secrets store):
+```
+CLOUDFLARE_TUNNEL_TOKEN=YOUR_LONG_TUNNEL_TOKEN_HERE
+```
+
+2) Add a `cloudflared` service to your compose stack (do not publish ports):
+```yaml
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: synology-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - synology-network
+```
+
+Cloudflare automatically creates a tunnel endpoint like `<tunnel-id>.cfargotunnel.com`. In the Tunnels page, add public hostnames and map them to your internal services.
+
+### ⚙️ Option B: Named Tunnel with config.yml
+This option gives you explicit control with an `ingress` config.
+
+1) Create a tunnel in the Cloudflare Dashboard and download credentials, or use `cloudflared tunnel create` from a temporary machine.
+
+2) Place the credentials file in the repo (example path):
+```
+configs/cloudflared/<TUNNEL_ID>.json
+```
+
+3) Create `configs/cloudflared/config.yml`:
+```yaml
+tunnel: <TUNNEL_ID>
+credentials-file: /etc/cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: grafana.yourdomain.com
+    service: http://grafana:3000
+  - hostname: nextcloud.yourdomain.com
+    service: http://nextcloud:80
+  - hostname: pihole.yourdomain.com
+    service: http://pihole:80
+  - hostname: prometheus.yourdomain.com
+    service: http://prometheus:9090
+  - service: http_status:404
+```
+
+4) Compose service (no ports needed):
+```yaml
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: synology-cloudflared
+    restart: unless-stopped
+    volumes:
+      - ./configs/cloudflared:/etc/cloudflared:ro
+    command: tunnel --no-autoupdate run
+    networks:
+      - synology-network
+```
+
+Make sure your application services share the same Docker network (`synology-network`) so `cloudflared` can reach them by container name.
+
+### 🌐 DNS Setup
+- For Option A, add hostnames in the Tunnels page; Cloudflare will create proxied DNS records automatically.
+- For Option B, create `CNAME` records pointing to `<tunnel-id>.cfargotunnel.com` for each hostname (orange-cloud/proxied ON).
+
+### 🔐 Cloudflare Access (Optional but Recommended)
+Protect private apps (e.g., Grafana, Nextcloud admin) with identity-aware policies:
+- Zero Trust → Access → Applications → Add application
+- Type: Self-hosted → Domain: `grafana.yourdomain.com`
+- Policies: e.g., Emails ending with `@yourmail.com`, One-Time PIN, GitHub/Google SSO
+
+### 🧪 Health & Troubleshooting
+- View logs: `docker logs -f synology-cloudflared`
+- Validate config: `cloudflared tunnel ingress validate` (inside container)
+- Common fixes:
+  - 404: Ensure `ingress` rules end with a catch-all `http_status:404`
+  - 502/Bad gateway: Container name/port mismatch or service not on same network
+  - DNS not resolving: Confirm CNAME is proxied (orange cloud) and hostnames match
+
+### 🔎 Example Mappings (from this repo)
+- Grafana → `http://grafana:3000` (compose: `docs/synology/docker-compose/monitoring.yml`)
+- Prometheus → `http://prometheus:9090`
+- Nextcloud → `http://nextcloud:80` (container listens 80, even if host maps 8080)
+- Pi-hole → `http://pihole:80`
+
+With this setup, your Synology services are reachable at `https://<app>.yourdomain.com` over Cloudflare’s secure edge without exposing your home network.
