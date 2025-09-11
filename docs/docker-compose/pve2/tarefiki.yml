@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  tarefiki:
+    image: tarefiki/tarefiki:latest
+    container_name: tarefiki
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - NODE_ENV=production
+    volumes:
+    - ./data:/app/data
+    - ./config:/app/config
+    ports:
+    - "3000:3000"
+    networks:
+    - homelab
+    user: "1000:1000"
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.tarefiki.rule=Host(`tarefiki.local`)"
+    - "traefik.http.services.tarefiki.loadbalancer.server.port=3000"
+
+networks:
+  homelab:
+    external: true

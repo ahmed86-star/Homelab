@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  leantime:
+    image: leantime/leantime:latest
+    container_name: leantime
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - LEAN_DB_HOST=leantime-db
+    - LEAN_DB_USER=${LEANTIME_DB_USER}
+    - LEAN_DB_PASSWORD=${LEANTIME_DB_PASSWORD}
+    - LEAN_DB_DATABASE=${LEANTIME_DB_NAME}
+    - LEAN_SESSION_PASSWORD=${LEANTIME_SESSION_PASSWORD}
+    - LEAN_SESSION_SALT=${LEANTIME_SESSION_SALT}
+    - LEAN_APP_URL=https://leantime.local
+    - LEAN_EMAIL_RETURN=${LEANTIME_EMAIL}
+    - LEAN_EMAIL_USE_SMTP=true
+    - LEAN_EMAIL_SMTP_HOSTS=${SMTP_HOST}
+    - LEAN_EMAIL_SMTP_USERNAME=${SMTP_USERNAME}
+    - LEAN_EMAIL_SMTP_PASSWORD=${SMTP_PASSWORD}
+    - LEAN_EMAIL_SMTP_PORT=${SMTP_PORT}
+    - LEAN_EMAIL_SMTP_SECURE=${SMTP_SECURE}
+    volumes:
+    - ./data/leantime:/var/www/html/userfiles
+    - ./data/leantime/sessions:/sessions
+    ports:
+    - "8080:80"
+    networks:
+    - homelab
+    depends_on:
+    - leantime-db
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost/api/healthcheck" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.leantime.rule=Host(`leantime.local`)"
+    - "traefik.http.services.leantime.loadbalancer.server.port=80"
+
+  leantime-db:
+    image: mariadb:10.6
+    container_name: leantime-db
+    restart: unless-stopped
+    environment:
+    - TZ=UTC
+    - MYSQL_ROOT_PASSWORD=${LEANTIME_DB_ROOT_PASSWORD}
+    - MYSQL_DATABASE=${LEANTIME_DB_NAME}
+    - MYSQL_USER=${LEANTIME_DB_USER}
+    - MYSQL_PASSWORD=${LEANTIME_DB_PASSWORD}
+    volumes:
+    - ./data/leantime-db:/var/lib/mysql
+    networks:
+    - homelab
+    security_opt:
+    - no-new-privileges:true
+    read_only: false
+    tmpfs:
+    - /tmp
+    - /var/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  homelab:
+    external: true
