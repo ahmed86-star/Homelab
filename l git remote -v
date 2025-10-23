@@ -1,0 +1,5 @@
+[33m5d2ced9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Add Tarefiki and Leantime Docker Compose configurations for pve2
+[33m51adb7c[m docs:
+[33m2e728f9[m chore: push from WSL
+[33medb6da7[m Add Swizzin seedbox service to PVE1
+[33m70e1164[m Add diagrams folder with Lucidchart and Dashboard Icons setup

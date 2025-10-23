@@ -29,6 +29,7 @@ Welcome to my **enterprise-grade homelab infrastructure**! This repository showc
 
 ### 🌟 Featured Technologies
 
+![Juniper](https://img.shields.io/badge/Juniper-00A1C9?style=for-the-badge&logo=juniper-networks&logoColor=white)
 ![Proxmox](https://img.shields.io/badge/Proxmox-E57000?style=for-the-badge&logo=proxmox&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
@@ -131,18 +132,25 @@ Storage Pool: SHR (Synology Hybrid RAID)
 
 ---
 
-### 🌐 Network Infrastructure
+### 🌍 Network Infrastructure
 
-#### ![Network](https://img.shields.io/badge/Network-00D4AA?style=for-the-badge&logo=network&logoColor=white) Enterprise Network Setup
+#### ![Juniper](https://img.shields.io/badge/Juniper-00A1C9?style=for-the-badge&logo=juniper-networks&logoColor=white) Enterprise Network Setup
 
-**Professional networking infrastructure** with VLAN segmentation and advanced features.
+**Professional networking infrastructure** powered by Juniper Networks equipment with enterprise-grade features, VLAN segmentation, and centralized management via Junos OS.
 
 #### 🛰️ Core Network Equipment
 
 | Device | Model | Type | Specifications | Features |
 |--------|-------|------|----------------|----------|
-| ![TP-Link](https://img.shields.io/badge/TP--Link-00D4AA?style=flat&logo=tp-link&logoColor=white) **Router** | Archer AX20 | Wi-Fi 6 Router | **Speed**: AX1800 (1800 Mbps)<br>**Ports**: 4x Gigabit LAN, 1x Gigabit WAN<br>**Wi-Fi**: 802.11ax (Wi-Fi 6) | • Dual-band Wi-Fi 6<br>• MU-MIMO technology<br>• Advanced QoS<br>• Parental controls |
-| ![Netgear](https://img.shields.io/badge/Netgear-00D4AA?style=flat&logo=netgear&logoColor=white) **Switch** | GS108Ev4 | Managed Switch | **Ports**: 8x Gigabit Ethernet<br>**Management**: Web-based | • VLAN support<br>• QoS prioritization<br>• Link aggregation<br>• Port mirroring |
+| ![Juniper](https://img.shields.io/badge/Juniper-00A1C9?style=flat&logo=juniper-networks&logoColor=white) **Router** | MX204 | Enterprise Router | **Speed**: 40 Gbps<br>**Ports**: Multiple 10GbE/40GbE<br>**Protocols**: BGP, OSPF, MPLS | • Advanced routing protocols<br>• High-performance forwarding<br>• Enterprise-grade reliability<br>• Comprehensive security |
+| ![Juniper](https://img.shields.io/badge/Juniper-00A1C9?style=flat&logo=juniper-networks&logoColor=white) **Switch** | EX2300-24T | Enterprise Switch | **Ports**: 24x Gigabit Ethernet<br>**Management**: Junos OS | • Layer 2/3 switching<br>• VLAN support<br>• Advanced QoS<br>• PoE+ support |
+
+#### 🔄 Alternative/Legacy Equipment
+
+| Device | Model | Type | Status | Notes |
+|--------|-------|------|--------|-------|
+| ![TP-Link](https://img.shields.io/badge/TP--Link-888888?style=flat&logo=tp-link&logoColor=white) **Router** | Archer AX20 | Wi-Fi 6 Router | Legacy/Backup | Replaced by Juniper MX204 |
+| ![Netgear](https://img.shields.io/badge/Netgear-888888?style=flat&logo=netgear&logoColor=white) **Switch** | GS108Ev4 | Managed Switch | Legacy/Backup | Replaced by Juniper EX2300 |
 
 #### 🌍 Network Segmentation
 
@@ -202,6 +210,13 @@ Storage Pool: SHR (Synology Hybrid RAID)
 | ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white) **Grafana** | Metrics visualization & dashboards | [https://grafana.com](https://grafana.com) | 🟢 Active |
 | ![InfluxDB](https://img.shields.io/badge/InfluxDB-22ADF6?style=for-the-badge&logo=influxdb&logoColor=white) **InfluxDB** | Time-series database | [https://influxdata.com](https://influxdata.com) | 🟢 Active |
 | ![Tianji](https://img.shields.io/badge/Tianji-FF6B35?style=for-the-badge&logo=tianji&logoColor=white) **Tianji** | System monitoring dashboard | [https://github.com/jeessy2/tianji](https://github.com/jeessy2/tianji) | 🟢 Active |
+
+### 🌐 Network Management & Control
+| Service | Description | Official Website | Status |
+|---------|-------------|------------------|--------|
+| ![Juniper](https://img.shields.io/badge/Juniper-00A1C9?style=for-the-badge&logo=juniper-networks&logoColor=white) **Junos Space** | Centralized network management | [https://www.juniper.net/us/en/products-services/network-management/](https://www.juniper.net/us/en/products-services/network-management/) | 🟢 Active |
+| ![Juniper](https://img.shields.io/badge/Juniper-00A1C9?style=for-the-badge&logo=juniper-networks&logoColor=white) **SNMP Monitoring** | Network device monitoring | [https://www.juniper.net](https://www.juniper.net) | 🟢 Active |
+| ![Juniper](https://img.shields.io/badge/Juniper-00A1C9?style=for-the-badge&logo=juniper-networks&logoColor=white) **Network Analytics** | Traffic analysis and insights | [https://www.juniper.net](https://www.juniper.net) | 🟢 Active |
 
 ### 🔒 Security & DNS
 | Service | Description | Official Website | Status |

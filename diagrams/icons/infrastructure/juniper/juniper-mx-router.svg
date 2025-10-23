@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140" height="50" viewBox="0 0 140 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="routerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d0d0d0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Router chassis -->
+  <rect x="2" y="5" width="136" height="40" rx="3" fill="url(#routerGradient)" stroke="#666" stroke-width="1"/>
+  
+  <!-- Front panel -->
+  <rect x="5" y="8" width="130" height="34" rx="2" fill="#2a2a2a" stroke="#555" stroke-width="0.5"/>
+  
+  <!-- Juniper logo area -->
+  <rect x="8" y="11" width="30" height="20" rx="2" fill="#00A1C9"/>
+  <text x="23" y="23" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">JUNIPER</text>
+  
+  <!-- Interface slots -->
+  <g transform="translate(45, 12)">
+    <!-- Slot 1 - Management ports -->
+    <rect x="0" y="0" width="25" height="18" fill="#333" rx="1"/>
+    <text x="12.5" y="12" font-family="Arial, sans-serif" font-size="6" fill="#ccc" text-anchor="middle">MGMT</text>
+    <rect x="2" y="14" width="4" height="2" fill="#555"/>
+    <rect x="8" y="14" width="4" height="2" fill="#555"/>
+    <rect x="14" y="14" width="4" height="2" fill="#555"/>
+    <rect x="20" y="14" width="4" height="2" fill="#555"/>
+    
+    <!-- Slot 2 - Line cards -->
+    <rect x="30" y="0" width="25" height="18" fill="#333" rx="1"/>
+    <text x="42.5" y="8" font-family="Arial, sans-serif" font-size="6" fill="#ccc" text-anchor="middle">0/0/0</text>
+    <text x="42.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#ccc" text-anchor="middle">0/0/1</text>
+    
+    <!-- Slot 3 - Line cards -->
+    <rect x="60" y="0" width="25" height="18" fill="#333" rx="1"/>
+    <text x="72.5" y="8" font-family="Arial, sans-serif" font-size="6" fill="#ccc" text-anchor="middle">0/1/0</text>
+    <text x="72.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#ccc" text-anchor="middle">0/1/1</text>
+  </g>
+  
+  <!-- Status LEDs -->
+  <g transform="translate(110, 15)">
+    <circle cx="0" cy="0" r="2" fill="#0f0"/> <!-- Power -->
+    <circle cx="8" cy="0" r="2" fill="#0f0"/> <!-- Status -->
+    <circle cx="16" cy="0" r="2" fill="#ff0"/> <!-- Alarm -->
+    <text x="8" y="12" font-family="Arial, sans-serif" font-size="6" fill="#ccc" text-anchor="middle">STATUS</text>
+  </g>
+  
+  <!-- Model label -->
+  <text x="70" y="48" font-family="Arial, sans-serif" font-size="8" fill="#666" text-anchor="middle">MX204</text>
+</svg>

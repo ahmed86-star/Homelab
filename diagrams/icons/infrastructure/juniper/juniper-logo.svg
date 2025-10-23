@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="juniperGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00A1C9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0073A7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Juniper Networks Logo Background -->
+  <rect x="0" y="0" width="200" height="60" rx="8" fill="url(#juniperGradient)"/>
+  
+  <!-- Juniper Icon/Symbol -->
+  <g transform="translate(10, 15)">
+    <!-- Stylized "J" and network symbol -->
+    <path d="M5 5 Q5 0 10 0 L20 0 Q25 0 25 5 L25 20 Q25 25 20 25 L15 25 Q10 25 10 20 L10 15" 
+          stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="10" cy="18" r="2" fill="white"/>
+    
+    <!-- Network nodes -->
+    <circle cx="28" cy="8" r="1.5" fill="white" opacity="0.8"/>
+    <circle cx="32" cy="15" r="1.5" fill="white" opacity="0.8"/>
+    <circle cx="28" cy="22" r="1.5" fill="white" opacity="0.8"/>
+    <line x1="25" y1="12" x2="28" y2="8" stroke="white" stroke-width="1" opacity="0.6"/>
+    <line x1="25" y1="15" x2="32" y2="15" stroke="white" stroke-width="1" opacity="0.6"/>
+    <line x1="25" y1="18" x2="28" y2="22" stroke="white" stroke-width="1" opacity="0.6"/>
+  </g>
+  
+  <!-- Juniper Networks Text -->
+  <text x="55" y="25" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">JUNIPER</text>
+  <text x="55" y="40" font-family="Arial, sans-serif" font-size="10" fill="white" opacity="0.9">NETWORKS</text>
+</svg>
